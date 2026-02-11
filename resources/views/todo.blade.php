@@ -9,6 +9,25 @@
 <body>
     @auth
         <p>You are logged in!</p>
+
+        <h2>Create a new list</h2>
+        <div>
+            <form action="/create-list" method="POST">
+                @csrf
+                <input name="list" type="text" placeholder="Input list here">
+                <button>Save List</button>
+            </form>
+        </div>
+
+        <div style="border: 3px solid black">
+            <h3>All Lists here</h3>
+            @foreach ($posts as $post)
+                <div style="border: 3px solid black">
+                    <h4>{{$post['list']}}</h4>
+                </div>
+            @endforeach
+        </div>
+
         <form action="/logout" method="POST">
             @csrf
             <button>Logout!</button>
