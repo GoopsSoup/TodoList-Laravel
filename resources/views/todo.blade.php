@@ -23,7 +23,7 @@
             <h3>All Lists here</h3>
             @foreach ($posts as $post)
                 <div style="border: 3px solid black">
-                    <h4>{{$post['list']}}</h4>
+                    <h4>{{$post['list']}}   </h4>
                 </div>
             @endforeach
         </div>

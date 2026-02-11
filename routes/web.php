@@ -6,7 +6,11 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    $posts = Post::all();
+    $posts = [];
+    if (auth()->check()) {
+        $posts = auth()->user()->userList()->latest()->get();
+    }
+    // $posts = Post::where('user_id', auth()->id())->get();
     return view('todo', ['posts' => $posts]);
 });
 
