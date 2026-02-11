@@ -23,7 +23,18 @@
             <h3>All Lists here</h3>
             @foreach ($posts as $post)
                 <div style="border: 3px solid black">
-                    <h4>{{$post['list']}}   </h4>
+
+                    <h4>{{$post['list']}}</h4>
+
+                    {{-- <h4>{{$post['list']}} //by {{$post->user->name}}//</h4> --}}
+                    <!--untuk melihat siapa yang upload list tersebut ^-->
+
+                    <p><a href="/edit-list/{{$post->id}}">Edit</a></p>
+                    <form action="/delete-list/{{$post->id}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button>Delete</button>
+                    </form>
                 </div>
             @endforeach
         </div>

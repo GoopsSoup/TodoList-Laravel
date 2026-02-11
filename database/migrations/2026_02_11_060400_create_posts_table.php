@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('list');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete('cascade');
         }); 
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down(): void    
     {
         Schema::dropIfExists('posts');
     }

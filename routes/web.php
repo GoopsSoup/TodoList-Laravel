@@ -19,6 +19,12 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 
+
 //List
 Route::post('/create-list', [ListController::class, 'createList']);
+//Edit  
+Route::get('/edit-list/{post}', [ListController::class, 'editScreen']);
+Route::put('/edit-list/{post}', [ListController::class, 'editList']);   
 
+
+Route::delete('/delete-list/{post}', [ListController::class, 'deleteList']);
