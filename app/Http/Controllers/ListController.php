@@ -10,6 +10,11 @@ class ListController extends Controller
 
     //buat list baru
     public function createList(Request $request) {
+        //security plus plus
+        if (!auth()->check()) {
+            return redirect('/register');
+        }   
+
         $listField = $request->validate([
             'list' => 'required'
         ]); 
@@ -24,6 +29,7 @@ class ListController extends Controller
 
     //berpindah ke halaman edit
     public function editScreen(Post $post) {
+
         if (auth()->user()->id !== $post['user_id']) {
             return redirect('/');
         }
@@ -31,6 +37,10 @@ class ListController extends Controller
     }
 
     public function editList(Post $post, Request  $request) {
+        if (!auth()->check()) {
+            return redirect('/register');
+        } 
+
         if (auth()->user()->id !== $post['user_id']) {
             return redirect('/');
         }
@@ -47,6 +57,11 @@ class ListController extends Controller
 
 
     public function deleteList(Post $post) {
+        //security yes
+        if (!auth()->check()) {
+            return redirect('/register');
+        } 
+
         if (auth()->user()->id === $post['user_id']) {
             $post->delete();
         }

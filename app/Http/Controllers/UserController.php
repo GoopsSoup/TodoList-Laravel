@@ -34,9 +34,8 @@ class UserController extends Controller
     //logout
     public function logout() {
         auth()->logout();
-        return redirect('/');
+        return redirect('/register');
     }
-
 
     //login
     public function login(Request $request) {
