@@ -23,4 +23,4 @@ DB_PASSWORD=
 -php artisan migrate
 
 5.kode bisa dijalankan menggunakan 
--php artisan migrate atau composer run dev
+-composer run dev
