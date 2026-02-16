@@ -22,6 +22,7 @@
                         <img id="imageslider" src="/images/thejonkler.jpg" alt="The real jonkler" 
                         class="w-full h-full     rounded-tr-4xl rounded-br-4xl z-2 transition-all ease-in-out duration-700">
 
+                        {{-- Login page --}}
                         <div class="flex flex-col items-center justify-center absolute">
 
                             <h1 class="text-3xl relative">Login</h1>
@@ -43,6 +44,7 @@
                         </div>
                     </div>
 
+                    {{-- Register page --}}
                     <div class="w-full flex flex-col items-center justify-center bg-fuchsia-600">
 
                         <h1 class="text-3xl relative">Register</h1>

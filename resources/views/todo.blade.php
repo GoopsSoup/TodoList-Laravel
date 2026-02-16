@@ -11,17 +11,20 @@
     <header class="flex justify-center items-center h-25 bg-amber-500 pb-3">
         <h1 class="text-2xl">Create a new list</h1>
     </header>
+
     <section class="relative h-screen w-screen bg-blue-400 min-h-screen max-w-12/12">
 
         <aside class="absolute bg-emerald-600 w-1/19 h-full">
             <p>hello</p>
-        </aside>
+        </aside>    
 
+        {{-- Lists --}}
         <main class="h-full w-full bg-blue-600 flex items-center justify-center flex-col">
             <h3 class="p-5 text-3xl">All lists here</h3>
 
             <div style="border: 3px solid black" class="flex items-center bg-red-300 flex-col h-10/12 w-9/12 p-[3%] gap-1 md:gap-2 lg:gap-3">
                 <div class="flex justify-center bg-amber-300">
+                    {{-- Add list --}}
                     <form action="/create-list" method="POST">
                         @csrf
                         <input name="list" type="text" placeholder="New list here"
@@ -41,7 +44,9 @@
                         {{-- <h4>{{$post['list']}} //by {{$post->user->name}}//</h4> --}}
                         <!--untuk melihat siapa yang upload list tersebut ^-->
                         <div class="flex justify-between w-1/12">
+                            {{-- Edit list --}}
                             <p><a href="/edit-list/{{$post->id}}" {{ auth()->guest() ? 'disabled' : '' }}>E</a></p>
+                            {{-- Delete list --}}
                             <form action="/delete-list/{{$post->id}}" method="POST">
                                 @csrf
                                 @method('DELETE')
