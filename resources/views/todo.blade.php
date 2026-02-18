@@ -41,10 +41,10 @@
 
                 {{-- lists --}}
                     <div 
-                    class="w-10/12 max-h-[70vh] flex flex-col justify-start items-center gap-y-1 bg-amber-200 rounded-2xl shadow-[inset_0_2px_20px_rgba(0,0,0,255)] overflow-y-scroll pb-10 pt-10">
+                    class="w-10/12 max-h-[70vh] flex flex-col justify-start items-center gap-y-10 bg-[#f0f0f0] rounded-2xl shadow-[inset_0_2px_10px_rgba(0,0,0,255)] overflow-y-scroll pb-10 pt-10">
                         @foreach ($posts as $post)
-                            <div style="border: 3px solid rgb(49, 0, 228)" 
-                            class="flex justify-between items-center h-auto w-11/12 pr-[1%] pl-[1%] rounded-2xl min-h-2/12">
+                            <div 
+                            class="flex bg-white justify-between items-center h-auto w-11/12 pr-[1%] pl-[1%] rounded-2xl min-h-2/12 shadow-[0px_0px_14px_0px_rgba(50,50,50,1)] ">
 
                                 <div class="relative group flex-1 min-w-0">
 
