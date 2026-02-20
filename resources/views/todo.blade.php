@@ -23,18 +23,18 @@
             <h3 class="p-5 text-3xl">All lists here</h3>
 
 
-            <div style="border: 3px solid black" class="flex items-center bg-[#f0f0f0] flex-col h-12/12 w-9/12 p-[2%] gap-1 md:gap-2 lg:gap-3">
+            <div style="border: 3px solid black" class="flex items-center bg-[#f0f0f0] flex-col w-9/12 p-[2%] gap-1 md:gap-2 lg:gap-3">
                 
                 {{-- Add list --}}
-                <div class="flex h-2/12 w-11/12 m-6">
+                <div class="flex h-12 w-10/12 m-6">
                     <form action="/create-list" method="POST" class="flex w-full justify-between">
                         @csrf
                         <input name="list" type="text" placeholder="Add List Here"
                         {{ auth()->guest() ? 'disabled' : '' }}
-                        class="h-full p-1 bg-blue-700 w-12/12 rounded-tl-[20px] rounded-bl-[10px]">
+                        class="h-full p-1 bg-[#e7e7ee] w-10/12 rounded-tl-[20px] rounded-bl-[10px] pl-2 shadow-[0_5px_1px_rgba(0,0,0,0.50)] border-r-1 border-[#808080] list-input">
                         <button {{ auth()->guest() ? 'disabled' : '' }} 
-                            class="bg-amber-950 rounded-br-[20px] rounded-tr-[10px]">
-                            Save List
+                            class="bg-[#4fee4a] rounded-br-[20px] rounded-tr-[10px] w-2/12 shadow-[0px_5px_1px_rgba(0,0,0,0.50)] border-l-1 border-[#808080] save-button">
+                            Save
                         </button>
                     </form>
                 </div>

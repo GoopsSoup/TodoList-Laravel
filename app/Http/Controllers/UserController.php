@@ -50,6 +50,8 @@ class UserController extends Controller
         if (auth()->attempt(['name' => $userRequired['loginName'], 'email' => $userRequired['loginEmail'], 'password' => $userRequired['loginPassword']])) {
             //lanjut
             $request->session()->regenerate();
+        } else {
+            return redirect('/register');
         }
 
         //kembali ke homepage

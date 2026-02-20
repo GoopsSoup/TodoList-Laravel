@@ -8,21 +8,30 @@
   background: transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 100, 100, 0.3);
-  border-radius: 10px;
-  transition: background-color 0.2s ease;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(100, 100, 100, 0.6);
-}
-
 .cards {
     transition: all ease-in-out 0.2s;
 }
 
 .cards:hover {
+    transform: translateY(8%);
+    box-shadow: none;
+}
+
+.list-input {
+    transition: all ease-in-out 0.1s;
+}
+
+.list-input:focus {
+    transform: translateY(8%);
+    box-shadow: none;
+    outline: none;
+}
+
+.save-button {
+    transition: all ease-in-out 0.1s;
+}
+
+.save-button:hover {
     transform: translateY(8%);
     box-shadow: none;
 }
