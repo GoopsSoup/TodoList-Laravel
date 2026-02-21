@@ -7,23 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body class="bg-[#f1f5f9]">
-    <header class="flex justify-center items-center h-25 bg-[#4f46e5] pb-3">
+<body class="bg-[#f0f0f0] flex flex-col min-h-screen">
+    <header class="h-20 bg-[#4f46e5] flex items-center justify-center">
         <h1 class="text-2xl">To Do List</h1>
     </header>
 
-    <section class="relative min-h-screen w-screen max-w-12/12">
+    <main class="flex flex-1">  
 
-        <aside class="absolute bg-[#1e293b] w-1/19 h-full">
-            <p>hello</p>
-        </aside>    
-
+        <aside class="w-1/6 bg-[#1e293b]">
+            hello
+        </aside>
         {{-- Lists --}}
-        <main class="h-full w-full  flex items-center justify-center flex-col flex-1">
-            <h3 class="p-5 text-3xl">All lists here</h3>
+        <section class="h-full w-full flex items-center justify-center flex-col flex-1">
 
-
-            <div style="border: 3px solid black" class="flex items-center bg-[#f0f0f0] flex-col w-9/12 p-[2%] gap-1 md:gap-2 lg:gap-3">
+            <div class="flex items-center flex-col w-9/12 p-[2%] gap-1 md:gap-2 lg:gap-3">
                 
                 {{-- Add list --}}
                 <div class="flex h-12 w-10/12 m-6">
@@ -41,11 +38,11 @@
 
                 {{-- lists --}}
                     <div 
-                    class="w-12/12  max-h-[65vh] flex flex-col justify-start items-center gap-y-5 bg-slate-200 rounded-2xl shadow-[inset_0_0px_15px_rgba(0,0,0,0.20)] overflow-y-auto pb-10 pt-10
+                    class="w-12/12  max-h-[65vh] flex flex-col justify-start items-center gap-y-5 bg-slate-200 rounded-2xl shadow-[inset_0_0px_15px_rgba(10,10,150,0.20)] overflow-y-auto pb-10 pt-10
                     custom-scrollbar">
                         @foreach ($posts as $post)
                             <div 
-                            class="flex bg-[#faf9f9] justify-between items-center min-h-16 w-11/12 pr-[1%] pl-[1%] rounded-2xl border border-[#d2d2d2] shadow-[0_5px_1px_rgba(0,0,0,0.50)]
+                            class="flex bg-[#faf9f9] justify-between items-center min-h-16 w-11/12 pr-[1%] pl-[1%] rounded-2xl border border-[#d2d2d2] shadow-[0_5px_1px_rgba(20,20,200,0.50)]
                             cards">
 
                                 <div class="relative group flex-1 min-w-0">
@@ -90,9 +87,17 @@
                 </a>
                 @endauth
             </div>
-        </main>
-    </section>
+
+        
+        </section>
+
+    </main>
     
+    <footer class="w-full h-20 gap-20">
+        <div class="bg-[black] h-full">
+            sup
+        </div>  
+    </footer>
     
     
 </body>
