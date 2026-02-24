@@ -53,14 +53,14 @@
     <div class="orb-2"></div>
 
     {{-- ===== NAVBAR ===== --}}
-    <header class="sticky top-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-[#0d0d12]/80 backdrop-blur-xl border-b border-white/[0.06]">
+    <header class="sticky top-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-[#0d0d12]/80 backdrop-blur-xl border-b border-white/6">
         <div class="flex items-center gap-3">
-            <button id="sidebarToggle" class="lg:hidden flex flex-col gap-[5px] p-1.5 rounded-lg hover:bg-white/[0.05] transition-colors cursor-pointer">
-                <span class="w-5 h-[2px] bg-white/50 rounded"></span>
-                <span class="w-5 h-[2px] bg-white/50 rounded"></span>
-                <span class="w-3.5 h-[2px] bg-white/50 rounded"></span>
+            <button id="sidebarToggle" class="lg:hidden flex flex-col gap-1.25 p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
+                <span class="w-5 h-0.5 bg-white/50 rounded"></span>
+                <span class="w-5 h-0.5 bg-white/50 rounded"></span>
+                <span class="w-3.5 h-0.5 bg-white/50 rounded"></span>
             </button>
-            <span class="font-display font-extrabold text-[1.1rem] bg-gradient-to-r from-[#7c6dfa] to-[#fa6d9a] bg-clip-text text-transparent tracking-tight">
+            <span class="font-display font-extrabold text-[1.1rem] bg-linear-to-r from-[#7c6dfa] to-[#fa6d9a] bg-clip-text text-transparent tracking-tight">
                 TaskFlow
             </span>
         </div>
@@ -70,7 +70,7 @@
             <span class="hidden sm:block text-xs text-white/25 mr-1">{{ auth()->user()->name ?? '' }}</span>
             <form action="/logout" method="POST">
                 @csrf
-                <button class="font-display text-xs font-bold tracking-wide text-[#f87171] px-3.5 py-1.5 rounded-lg border border-[#f87171]/20 bg-[#f87171]/[0.05] hover:bg-[#f87171]/15 transition-colors cursor-pointer">
+                <button class="font-display text-xs font-bold tracking-wide text-[#f87171] px-3.5 py-1.5 rounded-lg border border-[#f87171]/20 bg-[#f87171]/5 hover:bg-[#f87171]/15 transition-colors cursor-pointer">
                     Sign out
                 </button>
             </form>
@@ -92,7 +92,7 @@
 
         {{-- ===== SIDEBAR ===== --}}
         <aside id="sidebar"
-            class="fixed lg:sticky top-14 left-0 h-[calc(100vh-3.5rem)] w-64 bg-[#111118] border-r border-white/[0.06] flex flex-col z-40 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
+            class="fixed lg:sticky top-14 left-0 h-[calc(100vh-3.5rem)] w-64 bg-[#111118] border-r border-white/6 flex flex-col z-40 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
 
             <nav class="flex-1 p-3 space-y-0.5">
 
@@ -100,31 +100,31 @@
                 <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20 px-2 pt-3 pb-2">Menu</p>
 
                 <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#7c6dfa]/10 text-[#7c6dfa] text-sm font-medium">
-                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                     All Tasks
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
-                        {{ isset($posts) ? $posts->count() : 0 }}
+                        {{ count($posts) }}
                     </span>
                 </a>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/[0.04] text-sm transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Today
                 </a>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/[0.04] text-sm transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     Upcoming
                 </a>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/[0.04] text-sm transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                     In Progress
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#fa6d9a]/10 text-[#fa6d9a] px-1.5 py-0.5 rounded-full">3</span>
                 </a>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/[0.04] text-sm transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     Completed
                 </a>
 
@@ -141,17 +141,17 @@
                 {{-- Placeholder fav lists --}}
                 <div class="space-y-0.5 opacity-50">
                     <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 text-sm">
-                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         <span class="truncate">Work Tasks</span>
                         <span class="ml-auto text-[10px] text-white/15">5</span>
                     </div>
                     <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 text-sm">
-                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         <span class="truncate">Personal Goals</span>
                         <span class="ml-auto text-[10px] text-white/15">2</span>
                     </div>
                     <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 text-sm">
-                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 fshrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         <span class="truncate">Shopping</span>
                         <span class="ml-auto text-[10px] text-white/15">8</span>
                     </div>
@@ -165,7 +165,7 @@
 
             {{-- Sidebar footer --}}
             <div class="p-3 border-t border-white/5">
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/22 hover:text-white/45 hover:bg-white/[0.04] text-sm transition-colors">
+                <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/22 hover:text-white/45 hover:bg-white/4 text-sm transition-colors">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
                     Settings
                 </a>
@@ -174,7 +174,7 @@
 
         {{-- ===== MAIN ===== --}}
         <main class="flex-1 min-w-0 p-5 md:p-8 lg:p-10">
-            <div class="max-w-5xl mx-auto">
+            <div class="max-w-5xl mx-auto min-h-[130vh]">
 
                 <div class="mb-8">
                     <h1 class="font-display font-extrabold text-3xl md:text-4xl tracking-tight mb-1">All Tasks</h1>
@@ -203,23 +203,23 @@
                     <button
                         type="submit"
                         {{ auth()->guest() ? 'disabled' : '' }}
-                        class="font-display font-bold text-[11px] tracking-widest uppercase bg-[#7c6dfa] hover:bg-[#6b5ce7] disabled:opacity-35 disabled:cursor-not-allowed text-white px-5 transition-colors cursor-pointer flex-shrink-0">
+                        class="font-display font-bold text-[11px] tracking-widest uppercase bg-[#7c6dfa] hover:bg-[#6b5ce7] disabled:opacity-35 disabled:cursor-not-allowed text-white px-5 transition-colors cursor-pointer shrink-0">
                         + Add
                     </button>
                 </form>
 
                 {{-- Stats --}}
-                <div class="grid grid-cols-3 gap-3 mb-7">
-                    <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center">
-                        <p class="font-display font-extrabold text-2xl text-[#7c6dfa]">{{ isset($posts) ? $posts->count() : 0 }}</p>
+                <div class="grid grid-cols-3 gap-3 mb-7 min-h-40 ">
+                    <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
+                        <p class="font-display font-extrabold text-2xl text-[#7c6dfa]">{{ count($posts) }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Total</p>
                     </div>
-                    <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center">
+                    <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
                         <p class="font-display font-extrabold text-2xl text-[#4ade80]">0</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Done</p>
                     </div>
-                    <div class="bg-[#13131a] border border-white/6] rounded-xl p-3.5 text-center">
-                        <p class="font-display font-extrabold text-2xl text-[#fa6d9a]">{{ isset($posts) ? $posts->count() : 0 }}</p>
+                    <div class="bg-[#13131a] border border-white/6] rounded-xl p-3.5 text-center flex flex-col justify-center">
+                        <p class="font-display font-extrabold text-2xl text-[#fa6d9a]">{{ count($posts) }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Pending</p>
                     </div>
                 </div>
@@ -227,7 +227,7 @@
                 <div class="flex items-center gap-2 mb-3">
                     <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20">Tasks</p>
                     <span class="text-[10px] font-display font-bold bg-[#7c6dfa]/12 text-[#7c6dfa] px-2 py-0.5 rounded-full">
-                        {{ $posts->count() }}
+                        {{ count($posts) }}
                     </span>
                     <div class="flex-1 h-px bg-white/4"></div>
                 </div>
@@ -239,16 +239,18 @@
 
                     <div class="task-card group flex items-center gap-3 bg-[#13131a] border border-white/6 hover:border-[#7c6dfa]/28 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] rounded-xl px-4 py-3.5">
                         
-                        <span class="flex justify-center items-center cursor-pointer hover:text-yellow-600">
+                        <span class="flex justify-center items-center cursor-pointer hover:text-[#44ff00]">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                             </svg>
                         </span>
 
+                        {{-- Centang --}}
                         <span class="font-display text-[14px] font-bold text-white/18 w-5 text-right shrink-0">
-                            {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                            {{ str_pad($index + 1, 0, '0', STR_PAD_LEFT) }}
                         </span>
 
+                        {{-- bundaran  --}}
                         <span class="w-2 h-2 rounded-full bg-[#7c6dfa] shadow-[0_0_7px_rgba(124,109,250,0.55)] shrink-0"></span>
 
                         <div class="relative flex-1 min-w-0 group/text ">
@@ -258,8 +260,8 @@
                             </div>
                         </div>
 
-                        {{-- Star / favourite (placeholder) --}}
-                        <button title="Favourite (coming soon)" class="opacity-0 group-hover:opacity-100 text-white/18 hover:text-[#fa6d9a] transition-all shrink-0 cursor-pointer">
+                        {{-- Star  --}}
+                        <button title="Favourite (coming soon)" class="opacity-0 group-hover:opacity-100 text-white/18 hover:text-[#f6ff00] transition-all shrink-0 cursor-pointer">
                             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         </button>
 
@@ -273,13 +275,15 @@
                                 title="Edit">
                                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                             </button>
-                            <form action="/delete-list/{{ $post->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="w-8 h-8 flex items-center justify-center rounded-lg bg-[#f87171]/6 text-[#f87171] hover:bg-[#f87171]/18 transition-all cursor-pointer" title="Delete">
-                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                                </button>
-                            </form>
+
+                            <button 
+                                type="submit" 
+                                onclick="openDeleteModal('{{ $post->id }}', `{{ addslashes($post->list) }}`)"
+                                class="w-8 h-8 flex items-center justify-center rounded-lg bg-[#f87171]/6 text-[#f87171] hover:bg-[#f87171]/18 transition-all cursor-pointer" 
+                                title="Delete">
+                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                            </button>
+
                             @else
                             <span class="w-8 h-8 flex items-center justify-center rounded-lg bg-white/3 text-white/15 cursor-not-allowed" title="Edit">
                                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -287,7 +291,7 @@
                             @endauth
                         </div>
 
-                        <div class="hover:text-[#5089ec] hover:">
+                        <div class="hover:text-[#5089ec]">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
                             </svg>
@@ -310,6 +314,8 @@
         </main>
     </div>
 
+
+    {{-- Edit overlay --}}
     <div id="editModal" class="fixed inset-0 z-200 flex items-center justify-center px-4 hidden">
         {{-- Backdrop --}}
         <div id="editModalBackdrop" onclick="closeEditModal()" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
@@ -323,7 +329,7 @@
                     <h2 class="font-display font-bold text-lg tracking-tight">Edit Task</h2>
                     <p class="text-white/30 text-xs mt-0.5">Make your changes below</p>
                 </div>
-                <button onclick="closeEditModal()" class="w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/[0.06] transition-all cursor-pointer">
+                <button onclick="closeEditModal()" class="w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
@@ -355,6 +361,43 @@
                 </div>
             </form>
 
+        </div>
+    </div>
+
+    {{-- Delete overlay --}}
+    <div id="deleteModal" class="fixed inset-0 z-200 flex items-center justify-center px-4 hidden">
+        {{-- Backdrop --}}
+        <div id="editModalBackdrop" onclick="closeDeleteModal()" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+        {{-- Modal box --}}
+        <div id="DeleteBox" class="relative w-full max-w-md bg-[#13131a] border border-white/8 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.6)] p-6">
+
+            {{-- Header --}}
+            <div class="flex items-center justify-between mb-5 ">
+                <div>
+                    <h2 class="font-display font-bold text-lg tracking-tight">Are You Sure?</h2>
+                    <p class="text-white/30 text-xs mt-0.5">Are you sure to delete this task</p>
+                </div>
+                <button onclick="closeDeleteModal()" class="w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+
+            {{-- Form --}}
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-stretch sm:items-center pt-7 tracking-tight">
+                <form id="deleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="tracking-tight w-full sm:w-60 sm h-12 flex items-center justify-center rounded-lg bg-[#f9181871] hover:bg-[#f918189e] transition-all cursor-pointer text-[#f5e2e2c9]" title="Delete">
+                        Delete
+                    </button>
+                </form>
+                <div>
+                    <button onclick="closeDeleteModal()" class="tracking-tight w-full cursor-pointer bg-[#60606037] sm:w-37 h-12 rounded-lg hover:bg-[#6060609a]">
+                        Cancel  
+                    </button> 
+                </div>
+            </div>
         </div>
     </div>
 

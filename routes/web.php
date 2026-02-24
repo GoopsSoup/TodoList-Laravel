@@ -22,7 +22,7 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 
 //Sedikit security
-Route::middleware('auth')->group(function (){
+Route::middleware('auth' , 'verified')->group(function (){
     //List
     Route::post('/create-list', [ListController::class, 'createList']);
     //Edit  
