@@ -7,36 +7,32 @@ use Illuminate\Http\Request;
 
 class ListController extends Controller
 {
-
     //buat list baru
     public function createList(Request $request) {
         //security plus plus
+
         if (!auth()->check()) {
             return redirect('/register');
         }   
 
         $listField = $request->validate([
-            'list' => 'required'
+            'list' => 'required|max:255',
+            'dueDate' => 'nullable|date'
         ]); 
 
         $listField['list'] = strip_tags($listField['list']);
 
+
         //tambahkan user_id ke id list yang sudah dibuat 
         $listField['user_id'] = auth()->id();
         Post::create($listField);
+
         return redirect('/');
+
+        
     }
 
-    //berpindah ke halaman edit
-    public function editScreen(Post $post) {
-
-        if (auth()->user()->id !== $post['user_id']) {
-            return redirect('/');
-        }
-        return view('edit-list', ['post' => $post]);
-    }
-
-    public function editList(Post $post, Request  $request) {
+    public function editList(Post $post, Request $request) {
         if (!auth()->check()) {
             return redirect('/register');
         } 
@@ -48,6 +44,8 @@ class ListController extends Controller
         $listField = $request->validate([
             'list' => 'required'
         ]); 
+
+
 
         $listField['list'] = strip_tags($listField['list']);
 
@@ -66,5 +64,9 @@ class ListController extends Controller
             $post->delete();
         }
         return redirect('/');
+    }
+
+    public function times(Post $post) {
+        $table->timestamp('added_on')->nullable()->default(time());
     }
 }

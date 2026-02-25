@@ -26,7 +26,6 @@ Route::middleware('auth' , 'verified')->group(function (){
     //List
     Route::post('/create-list', [ListController::class, 'createList']);
     //Edit  
-    Route::get('/edit-list/{post}', [ListController::class, 'editScreen']);
     Route::put('/edit-list/{post}', [ListController::class, 'editList']);   
     //delete
     Route::delete('/delete-list/{post}', [ListController::class, 'deleteList']);
