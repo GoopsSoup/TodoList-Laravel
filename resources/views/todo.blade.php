@@ -75,7 +75,7 @@
                 </button>
             </form>
             @else
-            <a href="/login" class="font-display text-xs font-bold tracking-wide text-white/35 px-3.5 py-1.5 rounded-lg border border-white/[0.07] hover:text-white/60 hover:border-white/15 transition-colors">
+            <a href="/register" class="font-display text-xs font-bold tracking-wide text-white/35 px-3.5 py-1.5 rounded-lg border border-white/[0.07] hover:text-white/60 hover:border-white/15 transition-colors">
                 Log in
             </a>
             <a href="/register" class="font-display text-xs font-bold tracking-wide text-white px-3.5 py-1.5 rounded-lg bg-[#7c6dfa] hover:bg-[#6b5ce7] transition-colors">
@@ -200,6 +200,11 @@
                         {{ auth()->guest() ? 'disabled' : '' }}
                         class="task-input flex-1 bg-transparent border-none outline-none px-4 text-sm text-white placeholder-white/20 disabled:opacity-35 disabled:cursor-not-allowed transition-shadow duration-200"
                     >
+                    <input
+                     {{ auth()->guest() ? 'disabled' : '' }}
+                     type="date" 
+                     name="dueDate"
+                    >
                     <button
                         type="submit"
                         {{ auth()->guest() ? 'disabled' : '' }}
@@ -211,15 +216,15 @@
                 {{-- Stats --}}
                 <div class="grid grid-cols-3 gap-3 mb-7 min-h-40 ">
                     <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-2xl text-[#7c6dfa]">{{ count($posts) }}</p>
+                        <p class="font-display font-extrabold text-4xl text-[#7c6dfa]">{{ count($posts) }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Total</p>
                     </div>
                     <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-2xl text-[#4ade80]">0</p>
+                        <p class="font-display font-extrabold text-4xl text-[#4ade80]">0</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Done</p>
                     </div>
                     <div class="bg-[#13131a] border border-white/6] rounded-xl p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-2xl text-[#fa6d9a]">{{ count($posts) }}</p>
+                        <p class="font-display font-extrabold text-4xl text-[#fa6d9a]">{{ count($posts) }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Pending</p>
                     </div>
                 </div>
@@ -239,22 +244,44 @@
 
                     <div class="task-card group flex items-center gap-3 bg-[#13131a] border border-white/6 hover:border-[#7c6dfa]/28 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] rounded-xl px-4 py-3.5">
                         
+                        {{-- Centang --}}
                         <span class="flex justify-center items-center cursor-pointer hover:text-[#44ff00]">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                             </svg>
                         </span>
 
-                        {{-- Centang --}}
+                        
                         <span class="font-display text-[14px] font-bold text-white/18 w-5 text-right shrink-0">
                             {{ str_pad($index + 1, 0, '0', STR_PAD_LEFT) }}
                         </span>
 
                         {{-- bundaran  --}}
-                        <span class="w-2 h-2 rounded-full bg-[#7c6dfa] shadow-[0_0_7px_rgba(124,109,250,0.55)] shrink-0"></span>
+                        @php
+                            $statusClass = 'bg-[#7c6dfa] shadow-[0_0_4px_rgba(124,109,250,100)]"';
+
+                            if ($post->dueDate) {
+
+                                $daysDifference = now()->diffInDays($post->dueDate);
+
+                                if ($daysDifference < 0) {
+                                    $statusClass = 'bg-red-600 shadow-[0_0_4px_rgba(255,0,0,100)]'; 
+                                } 
+                                elseif ($daysDifference <= 2) {
+                                    $statusClass = 'bg-yellow-300 shadow-[0_0_4px_rgba(255,255,0,100)]';
+                                }
+                            }
+                        @endphp
+                        <span class="w-2 h-2 rounded-full {{ $statusClass }} shrink-0"></span>
 
                         <div class="relative flex-1 min-w-0 group/text ">
-                            <p class="text-sm text-white/80 truncate">{{ $post['list'] }}</p>
+                            <p class="text-sm text-white/80 truncate">
+                                {{ $post['list'] }} 
+                                @if ($post->dueDate)    
+                                <p class="text-[11px]">Due: {{ $post->dueDate->format('d M Y') }}</p>
+                                @endif
+                            </p>
+                           
                             <div class="absolute bottom-full left-0 mb-2 hidden group-hover/text:block bg-[#1c1c28] border border-[#7c6dfa]/20 text-white/75 text-xs px-3 py-2 rounded-lg z-80 max-w-xs wrap-break-words shadow-xl ">
                                 {{ $post['list'] }}
                             </div>
@@ -289,12 +316,6 @@
                                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                             </span>
                             @endauth
-                        </div>
-
-                        <div class="hover:text-[#5089ec]">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                            </svg>
                         </div>
 
                     </div>
