@@ -200,11 +200,13 @@
                         {{ auth()->guest() ? 'disabled' : '' }}
                         class="task-input flex-1 bg-transparent border-none outline-none px-4 text-sm text-white placeholder-white/20 disabled:opacity-35 disabled:cursor-not-allowed transition-shadow duration-200"
                     >
+                    {{-- due date --}}
                     <input
                      {{ auth()->guest() ? 'disabled' : '' }}
                      type="date" 
                      name="dueDate"
                     >
+
                     <button
                         type="submit"
                         {{ auth()->guest() ? 'disabled' : '' }}
@@ -223,7 +225,7 @@
                         <p class="font-display font-extrabold text-4xl text-[#4ade80]">0</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Done</p>
                     </div>
-                    <div class="bg-[#13131a] border border-white/6] rounded-xl p-3.5 text-center flex flex-col justify-center">
+                    <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
                         <p class="font-display font-extrabold text-4xl text-[#fa6d9a]">{{ count($posts) }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Pending</p>
                     </div>
