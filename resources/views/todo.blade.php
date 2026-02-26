@@ -100,7 +100,7 @@
                 {{-- Main nav --}}
                 <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20 px-2 pt-3 pb-2">Menu</p>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#7c6dfa]/10 text-[#7c6dfa] text-sm font-medium">
+                <a href="/?filter=all" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#7c6dfa]/10 text-[#7c6dfa] text-sm font-medium">
                     <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                     All Tasks
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
@@ -108,17 +108,32 @@
                     </span>
                 </a>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                <a href="/?filter=today" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
                     <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Today
+                    <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
+                        {{ count($posts) }}
+                    </span>
                 </a>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                <a href="/?filter=upcoming" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
                     <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     Upcoming
+                    <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
+                        {{ count($posts) }}
+                    </span>
                 </a>
 
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                <a href="/?filter=upcoming" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Overdue
+                    <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
+                        {{ count($posts) }}
+                    </span>
+                </a>
+
+
+                <a href="/?filter=overdue" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors">
                     <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                     In Progress
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#fa6d9a]/10 text-[#fa6d9a] px-1.5 py-0.5 rounded-full">3</span>
@@ -215,9 +230,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
                     </svg>
                     </div>
-                    
 
-                    
                     <button
                         type="submit"
                         {{ auth()->guest() ? 'disabled' : '' }}
@@ -251,7 +264,7 @@
                 </div>
 
                 {{-- Task list --}}
-                <div class="task-scroll space-y-2 max-h-[52vh] overflow-y-auto pr-0.5 pt-6 ">
+                <div class="task-scroll space-y-2 max-h-[52vh] overflow-y-auto pr-0.5 pt-6">
 
                     @forelse ($posts as $index => $post)
 
@@ -280,6 +293,9 @@
                                 if ($daysDifference < -1) {
                                     $statusClass = 'bg-red-600 shadow-[0_0_4px_rgba(255,0,0,100)]'; 
                                 } 
+                                elseif ($daysDifference <= 0) {
+                                    $statusClass = 'bg-orange-500 shadow-[0_0_4px_rgba(255,165,0,100)]';
+                                }
                                 elseif ($daysDifference <= 2) {
                                     $statusClass = 'bg-yellow-300 shadow-[0_0_4px_rgba(255,255,0,100)]';
                                 }
@@ -344,6 +360,7 @@
                     @endforelse
 
                 </div>
+
             </div>
         </main>
     </div>

@@ -9,8 +9,26 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     $posts = [];
     if (auth()->check()) {
-        $posts = auth()->user()->userList()->latest()->get();
+        $query = auth()->user()->userList()->latest();
+
+
+        if (request('filter') === 'all') {
+            $query->whereNotNull('dueDate');
+        }
+        if (request('filter') === 'today') {
+            $query->whereDate('dueDate', today());
+        } 
+        if (request('filter') === 'overdue') {
+            $query->whereDate('dueDate', '<', today());
+        } 
+        if (request('filter') === 'upcoming') {
+            $query->whereDate('dueDate', '>', today());
+        }
+
+        $posts = $query->get();
+
     }
+
     // $posts = Post::where('user_id', auth()->id())->get();
     return view('todo', ['posts' => $posts]);
 });
@@ -18,7 +36,7 @@ Route::get('/', function () {
 //User
 
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/logout', [UserController::class, 'logout']);  
 Route::post('/login', [UserController::class, 'login']);
 
 //Sedikit security

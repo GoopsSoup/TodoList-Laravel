@@ -28,8 +28,6 @@ class ListController extends Controller
         Post::create($listField);
 
         return redirect('/');
-
-        
     }
 
     public function editList(Post $post, Request $request) {
