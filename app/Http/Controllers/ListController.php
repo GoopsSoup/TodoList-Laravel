@@ -43,8 +43,6 @@ class ListController extends Controller
             'list' => 'required'
         ]); 
 
-
-
         $listField['list'] = strip_tags($listField['list']);
 
         $post->update($listField);

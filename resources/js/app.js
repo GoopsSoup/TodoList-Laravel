@@ -111,3 +111,4 @@ window.closeDeleteModal = function closeDeleteModal() {
         overlay.classList.remove('opacity-100', 'pointer-events-auto');
         overlay.classList.add('opacity-0', 'pointer-events-none');
     });
+

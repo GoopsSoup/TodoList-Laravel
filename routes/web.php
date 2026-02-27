@@ -8,12 +8,15 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     $posts = [];
+    $allPosts = [];
+    $allPosts = auth()->user()->userlist()->latest()->get();
+
     if (auth()->check()) {
         $query = auth()->user()->userList()->latest();
 
 
         if (request('filter') === 'all') {
-            $query->whereNotNull('dueDate');
+            $allPosts;
         }
         if (request('filter') === 'today') {
             $query->whereDate('dueDate', today());
@@ -30,7 +33,7 @@ Route::get('/', function () {
     }
 
     // $posts = Post::where('user_id', auth()->id())->get();
-    return view('todo', ['posts' => $posts]);
+    return view('todo', ['posts' => $posts], ['allPosts' => $allPosts]);
 });
 
 //User
