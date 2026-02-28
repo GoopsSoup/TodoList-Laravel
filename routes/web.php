@@ -7,33 +7,38 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    $posts = [];
-    $allPosts = [];
-    $allPosts = auth()->user()->userlist()->latest()->get();
 
-    if (auth()->check()) {
-        $query = auth()->user()->userList()->latest();
-
-
-        if (request('filter') === 'all') {
-            $allPosts;
-        }
-        if (request('filter') === 'today') {
-            $query->whereDate('dueDate', today());
-        } 
-        if (request('filter') === 'overdue') {
-            $query->whereDate('dueDate', '<', today());
-        } 
-        if (request('filter') === 'upcoming') {
-            $query->whereDate('dueDate', '>', today());
-        }
-
-        $posts = $query->get();
-
+    if (!request()->has('filter')) {
+        return redirect('/?filter=all');
     }
 
+    if (!auth()->check()) {
+        return view('todo', [
+            'allPosts' => collect(),
+            'posts' => collect(),
+        ]);
+    }
+
+    $query = auth()->user()->userList()->latest();
+    $allPosts = auth()->user()->userList()->latest()->get();
+
+    if (request('filter') === 'today') {
+        $query->whereDate('dueDate', today());
+    }
+
+    if (request('filter') === 'overdue') {
+        $query->whereDate('dueDate', '<', today());
+    }
+
+    if (request('filter') === 'upcoming') {
+        $query->whereDate('dueDate', '>', today());
+    }
+
+    $posts = $query->get();
+
     // $posts = Post::where('user_id', auth()->id())->get();
-    return view('todo', ['posts' => $posts], ['allPosts' => $allPosts]);
+
+    return view('todo', compact('allPosts', 'posts'));
 });
 
 //User

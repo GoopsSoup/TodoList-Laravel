@@ -101,13 +101,15 @@
                 <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20 px-2 pt-3 pb-2">Menu</p>
 
                 <a href="/?filter=all"
-                        class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm
-                        {{ request('filter') === 'all' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#ffffff59" fill-rule="evenodd" d="M3 13.5a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h9.25a.75.75 0 0 0 0-1.5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.75a.75.75 0 0 0-1.5 0V13a.5.5 0 0 1-.5.5H3Zm12.78-8.82a.75.75 0 0 0-1.06-1.06L9.162 9.177L7.289 7.241a.75.75 0 1 0-1.078 1.043l2.403 2.484a.75.75 0 0 0 1.07.01L15.78 4.68Z" clip-rule="evenodd"/></svg>
-                        All Tasks
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm
+                    {{ request('filter') === 'all' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#ffffff59" fill-rule="evenodd" d="M3 13.5a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h9.25a.75.75 0 0 0 0-1.5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.75a.75.75 0 0 0-1.5 0V13a.5.5 0 0 1-.5.5H3Zm12.78-8.82a.75.75 0 0 0-1.06-1.06L9.162 9.177L7.289 7.241a.75.75 0 1 0-1.078 1.043l2.403 2.484a.75.75 0 0 0 1.07.01L15.78 4.68Z" clip-rule="evenodd"/></svg>
+                    All Tasks
+                    @auth
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full"> {{--hover:text-white/65 hover:bg-white/4 bg-[#7c6dfa]/10--}}
                         {{ $allPosts->count() }}
                     </span>
+                    @endauth
                 </a>
 
                 <a href="/?filter=upcoming"
@@ -115,27 +117,33 @@
                     {{ request('filter') === 'upcoming' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8l4 4m9-4c0 7.18-5.82 13-13 13S3 23.18 3 16S8.82 3 16 3s13 5.82 13 13Z"/></svg>
                     Upcoming
+                    @auth
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
                         {{ $allPosts->where('dueDate', '>', today())->count() }}
                     </span>
+                    @endauth
                 </a>
 
                 <a href="/?filter=today" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm 
                 {{ request('filter') === 'today' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><rect width="416" height="384" x="48" y="80" fill="none" stroke="#ffffff59" stroke-linejoin="round" stroke-width="32" rx="48"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"/><rect width="96" height="96" x="112" y="224" fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="13"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 160H48"/></svg>
                     Today
+                    @auth
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
                         {{ $allPosts->where('dueDate', today())->count() }}
                     </span>
+                    @endauth
                 </a>
 
-                <a href="/?filter=overdue" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 hover:text-white/65 hover:bg-white/4 text-sm transition-colors
+                <a href="/?filter=overdue" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors
                 {{ request('filter') === 'overdue' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path d="M17.75 3A3.25 3.25 0 0 1 21 6.25v5.772a6.471 6.471 0 0 0-1.5-.709V8.5h-15v9.25c0 .966.784 1.75 1.75 1.75h5.063c.173.534.412 1.037.709 1.5H6.25A3.25 3.25 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.5zm0 1.5H6.25A1.75 1.75 0 0 0 4.5 6.25V7h15v-.75a1.75 1.75 0 0 0-1.75-1.75z" fill="#FFFFFF59"/><path d="M23 17.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0zM17.5 14a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-.5-.5zm0 7.125a.625.625 0 1 0 0-1.25a.625.625 0 0 0 0 1.25z" fill="#FFFFFF59"/></g></svg>
                     Overdue
+                    @auth
                     <span class="ml-auto text-[10px] font-display font-bold bg-[#fa6d6d70] text-[#fa6d6d] px-1.5 py-0.5 rounded-full">
                         {{ $allPosts->where('dueDate', '<', today())->count() }}
                     </span>
+                    @endauth
                 </a>
 
                 <a href="#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 text-sm transition-colors">
