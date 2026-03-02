@@ -65,4 +65,54 @@ class ListController extends Controller
     public function times(Post $post) {
         $table->timestamp('added_on')->nullable()->default(time());
     }
+
+    public function check(post $post) {
+        if(!auth()->check()) {
+            abort(403);
+        }
+
+        $post->update([
+            'completed' => !$post->completed,
+        ]);
+
+        return redirect('/');
+    }
+
+    public function filterList() {
+        if (!request()->has('filter')) {
+            return redirect('/?filter=all');
+        }
+
+        if (!auth()->check()) {
+            return view('todo', [
+                'allPosts' => collect(),
+                'posts' => collect(),
+            ]);
+        }
+
+        $query = auth()->user()->userList()->latest();
+        $allPosts = auth()->user()->userList()->latest()->get(); 
+
+        if (request('filter') === 'today') {
+            $query->whereDate('dueDate', today());
+        }
+
+        if (request('filter') === 'overdue') {
+            $query->whereDate('dueDate', '<', today());
+        }
+
+        if (request('filter') === 'upcoming') {
+            $query->whereDate('dueDate', '>', today());
+        }
+
+        if(request('filter') === 'completed') {
+            $query->where('completed', true);
+        }
+
+        $posts = $query->get();
+
+        // $posts = Post::where('user_id', auth()->id())->get();
+
+        return view('todo', compact('allPosts', 'posts'));
+    }
 }

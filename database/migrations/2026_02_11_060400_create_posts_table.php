@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('list');
             $table->date('dueDate')->nullable();
+            $table->boolean('completed')->default(false);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete('cascade');
         }); 
     }

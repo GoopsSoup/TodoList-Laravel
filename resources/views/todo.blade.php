@@ -100,6 +100,8 @@
                 {{-- Main nav --}}
                 <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20 px-2 pt-3 pb-2">Menu</p>
 
+
+                {{-- semua list --}}
                 <a href="/?filter=all"
                     class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm
                     {{ request('filter') === 'all' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
@@ -112,6 +114,7 @@
                     @endauth
                 </a>
 
+                {{-- upcoming    --}}
                 <a href="/?filter=upcoming"
                     class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm
                     {{ request('filter') === 'upcoming' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
@@ -124,6 +127,7 @@
                     @endauth
                 </a>
 
+                {{-- hari ini --}}
                 <a href="/?filter=today" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm 
                 {{ request('filter') === 'today' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><rect width="416" height="384" x="48" y="80" fill="none" stroke="#ffffff59" stroke-linejoin="round" stroke-width="32" rx="48"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"/><rect width="96" height="96" x="112" y="224" fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="13"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 160H48"/></svg>
@@ -135,28 +139,34 @@
                     @endauth
                 </a>
 
+                {{-- overdue --}}
                 <a href="/?filter=overdue" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors
                 {{ request('filter') === 'overdue' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path d="M17.75 3A3.25 3.25 0 0 1 21 6.25v5.772a6.471 6.471 0 0 0-1.5-.709V8.5h-15v9.25c0 .966.784 1.75 1.75 1.75h5.063c.173.534.412 1.037.709 1.5H6.25A3.25 3.25 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.5zm0 1.5H6.25A1.75 1.75 0 0 0 4.5 6.25V7h15v-.75a1.75 1.75 0 0 0-1.75-1.75z" fill="#FFFFFF59"/><path d="M23 17.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0zM17.5 14a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-.5-.5zm0 7.125a.625.625 0 1 0 0-1.25a.625.625 0 0 0 0 1.25z" fill="#FFFFFF59"/></g></svg>
                     Overdue
                     @auth
-                    <span class="ml-auto text-[10px] font-display font-bold bg-[#fa6d6d70] text-[#fa6d6d] px-1.5 py-0.5 rounded-full">
+                    <span class="ml-auto text-[10px] font-display font-bold bg-[#de4e4e70] text-[#fa6d6d] px-1.5 py-0.5 rounded-full">
                         {{ $allPosts->where('dueDate', '<', today())->count() }}
                     </span>
                     @endauth
                 </a>
 
-                <a href="/?filter=#" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/35 text-sm transition-colors
-                    {{ request('filter') === 'complete' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
+                <a href="/?filter=completed" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-colors
+                    {{ request('filter') === 'completed' || !request('filter') ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                     Completed
+                    @auth
+                    <span class="ml-auto text-[10px] font-display font-bold bg-[#52b14191] text-[#9efa6d] px-1.5 py-0.5 rounded-full">
+                        {{ $allPosts->where('completed')->count() }}
+                    </span>
+                    @endauth
                 </a>
 
                 <div class="border-t border-white/5 my-2"></div>
 
-                {{-- Favourites section --}}
+                {{-- Favorites --}}
                 <div class="flex items-center justify-between px-2 pt-1.5 pb-1">
                     <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20">Favourites</p>
                     <button title="Coming soon" class="text-white/15 hover:text-[#fa6d9a] transition-colors cursor-pointer">
@@ -164,7 +174,7 @@
                     </button>
                 </div>
 
-                {{-- Placeholder fav lists --}}
+                {{-- Favorites lists --}}
                 <div class="space-y-0.5 opacity-50">
                     <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 text-sm">
                         <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -251,16 +261,19 @@
 
                 {{-- Stats --}}
                 <div class="grid grid-cols-3 gap-3 mb-7 min-h-40 ">
+                    {{-- total --}}
                     <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-4xl text-[#7c6dfa]">{{ count($posts) }}</p>
+                        <p class="font-display font-extrabold text-4xl text-[#7c6dfa]">{{ count($allPosts) }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Total</p>
                     </div>
+                    {{-- completed --}}
                     <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-4xl text-[#4ade80]">0</p>
+                        <p class="font-display font-extrabold text-4xl text-[#4ade80]">{{ $allPosts->where('completed')->count() }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Done</p>
                     </div>
+                    {{-- no done --}}
                     <div class="bg-[#13131a] border border-white/6 rounded-xl p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-4xl text-[#fa6d9a]">{{ count($posts) }}</p>
+                        <p class="font-display font-extrabold text-4xl text-[#fa6d9a]">{{ count($allPosts) - $allPosts->where('completed')->count() }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Pending</p>
                     </div>
                 </div>
@@ -281,11 +294,18 @@
                     <div class="task-card group flex items-center gap-3 bg-[#13131a] border border-white/6 hover:border-[#7c6dfa]/28 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] rounded-xl px-4 py-3.5">
                         
                         {{-- Centang --}}
-                        <span class="flex justify-center items-center cursor-pointer hover:text-[#44ff00]">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                            </svg>
-                        </span>
+                        <form method="POST" action="/posts/{{ $post->id }}/completed" class="flex justify-center items-center cursor-pointer hover:text-[#44ff00]">
+                           @csrf
+                           @method('PATCH')
+                           <button>
+                            s
+                            @if ($post->completed)
+                            
+                            @else
+
+                            @endif
+                           </button>
+                        </form>
 
                         
                         <span class="font-display text-[14px] font-bold text-white/18 w-5 text-right shrink-0">
