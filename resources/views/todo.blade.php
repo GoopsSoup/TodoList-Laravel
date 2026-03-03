@@ -298,12 +298,9 @@
                            @csrf
                            @method('PATCH')
                            <button>
-                            s
-                            @if ($post->completed)
-                            
-                            @else
-
-                            @endif
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                            </svg>
                            </button>
                         </form>
 
@@ -335,9 +332,17 @@
 
                         <div class="relative flex-1 min-w-0 group/text ">
                             <p class="text-sm text-white/80 truncate">
-                                {{ $post['list'] }} 
+                                @if ($post->completed)
+                                <p class="line-through text-[#80808092] ">{{ $post['list'] }}</p>
+                                @else 
+                                {{ $post['list'] }}
+                                @endif
                                 @if ($post->dueDate)    
-                                <p class="text-[11px]">Due: {{ $post->dueDate->format('d M Y') }}</p>
+                                    @if ($post->completed)
+                                    <p class="text-[11px] line-through text-[#80808092]">Due: {{ $post->dueDate->format('d M Y') }}</p>
+                                    @else
+                                    <p class="text-[11px]">Due: {{ $post->dueDate->format('d M Y') }}</p>
+                                    @endif
                                 @endif
                             </p>
                            
