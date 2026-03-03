@@ -42,6 +42,55 @@
             bottom: -80px; right: 40px;
         }
 
+        /* From Uiverse.io by cuzpq */ 
+        .theme-checkbox {
+        --toggle-size: 8px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 6.25em;
+        height: 3.125em;
+        background: -webkit-gradient(linear, left top, right top, color-stop(50%, #efefef), color-stop(50%, #2a2a2a)) no-repeat;
+        background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background-size: 205%;
+        background-position: 0;
+        -webkit-transition: 0.4s;
+        -o-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 99em;
+        position: relative;
+        cursor: pointer;
+        font-size: var(--toggle-size);
+        }
+
+        .theme-checkbox::before {
+        content: "";
+        width: 2.25em;
+        height: 2.25em;
+        position: absolute;
+        top: 0.438em;
+        left: 0.438em;
+        background: -webkit-gradient(linear, left top, right top, color-stop(50%, #efefef), color-stop(50%, #2a2a2a)) no-repeat;
+        background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background-size: 205%;
+        background-position: 100%;
+        border-radius: 50%;
+        -webkit-transition: 0.4s;
+        -o-transition: 0.4s;
+        transition: 0.4s;
+        }
+
+        .theme-checkbox:checked::before {
+        left: calc(100% - 2.25em - 0.438em);
+        background-position: 0;
+        }
+
+        .theme-checkbox:checked {
+        background-position: 100%;
+        }
+
         #sidebar { transition: transform 0.3s ease; }
         #sidebarOverlay { transition: opacity 0.3s ease; }
     </style>
@@ -168,43 +217,46 @@
 
                 {{-- Favorites --}}
                 <div class="flex items-center justify-between px-2 pt-1.5 pb-1">
-                    <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20">Favourites</p>
-                    <button title="Coming soon" class="text-white/15 hover:text-[#fa6d9a] transition-colors cursor-pointer">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
+                    <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white">Favourites</p>
                 </div>
+
+                @php
+                    $favourites = $allPosts->where('favourite', true);
+                @endphp
 
                 {{-- Favorites lists --}}
-                <div class="space-y-0.5 opacity-50">
-                    <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 text-sm">
-                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <span class="truncate">Work Tasks</span>
-                        <span class="ml-auto text-[10px] text-white/15">5</span>
-                    </div>
-                    <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 text-sm">
-                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <span class="truncate">Personal Goals</span>
-                        <span class="ml-auto text-[10px] text-white/15">2</span>
-                    </div>
-                    <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 text-sm">
-                        <svg class="w-3.5 h-3.5 text-[#fa6d9a]/50 fshrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <span class="truncate">Shopping</span>
-                        <span class="ml-auto text-[10px] text-white/15">8</span>
-                    </div>
+                @forelse ($favourites as $fav)
+                <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[#ffffff9f] text-sm">
+                    <svg class="w-3.5 h-3.5 text-[#e0e238bc] shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <span class="truncate">
+                    {{ $fav->list }}
+                    </span>
+                    @if($fav->dueDate)
+                    <span class="ml-auto text-[10px] text-[#ffffffa7]">{{ $fav->dueDate->format('d M Y') }}</span>
+                    @endif
+                   
                 </div>
-
-                <div class="mx-2 mt-2 px-3 py-2 rounded-lg border border-dashed border-white/8 text-center">
-                    <p class="text-[10px] text-white/18 font-display uppercase tracking-wider">Favourites coming soon</p>
+                    <div class="hidden">
+                        No favourites task yet
+                    </div>        
+                @empty
+                <div class="flex mt-6 justify-center items-center gap-4 ">
+                    <span class="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-white/30">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />
+                        </svg>  
+                    </span>
+                    <p class="text-white/30 text-[14px] ">No Favourite Task Yet</p>
                 </div>
+                @endforelse
 
             </nav>
 
             {{-- Sidebar footer --}}
-            <div class="p-3 border-t border-white/5">
-                <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/22 hover:text-white/45 hover:bg-white/4 text-sm transition-colors">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-                    Settings
-                </a>
+            <div class="p-3 border-t border-white/5 flex items-center justify-evenly">
+                <!-- From Uiverse.io by cuzpq --> 
+                <input type="checkbox" class="theme-checkbox">
+                <p class="text-[13px]">Dark Mode/Light Mode</p>
             </div>
         </aside>
 
@@ -238,7 +290,7 @@
                     >
                     {{-- due date --}}
 
-                    <div class="flex items-center w-[4%] justify-center bg-[#616161]">
+                    <div class="flex items-center min-w-7.5 sm:min-w-9 justify-center bg-[#616161]">
                         <input
                         {{ auth()->guest() ? 'disabled' : '' }}
                         type="text" 
@@ -334,9 +386,12 @@
                             <p class="text-sm text-white/80 truncate">
                                 @if ($post->completed)
                                 <p class="line-through text-[#80808092] ">{{ $post['list'] }}</p>
+                                @elseif ($post->favourite)
+                                <p class="text-[#cac711]">{{ $post['list'] }}</p>
                                 @else 
                                 {{ $post['list'] }}
                                 @endif
+
                                 @if ($post->dueDate)    
                                     @if ($post->completed)
                                     <p class="text-[11px] line-through text-[#80808092]">Due: {{ $post->dueDate->format('d M Y') }}</p>
@@ -352,9 +407,16 @@
                         </div>
 
                         {{-- Star  --}}
-                        <button title="Favourite (coming soon)" class="opacity-0 group-hover:opacity-100 text-white/18 hover:text-[#f6ff00] transition-all shrink-0 cursor-pointer">
-                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        </button>
+                        <form method="POST" action="/posts/{{ $post->id }}/favourite" class="flex items-center justify-center">
+                           @csrf
+                           @method('PATCH')
+                           <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 cursor-pointer opacity-0 group-hover:opacity-100 text-[white] hover:text-[#d9ff00] transition-all hover:fill-[#d9ff00]">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                            </svg>
+                           </button>
+                        </form>
+
 
                         {{-- Edit & Delete --}}
                         <div class="flex items-center gap-1.5 shrink-0">

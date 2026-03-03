@@ -66,13 +66,25 @@ class ListController extends Controller
         $table->timestamp('added_on')->nullable()->default(time());
     }
 
-    public function check(post $post) {
+    public function check(Post $post) {
         if(!auth()->check()) {
             abort(403);
         }
 
         $post->update([
             'completed' => !$post->completed,
+        ]);
+
+        return redirect('/');
+    }
+
+    public function fav(Post $post) {
+        if(!auth()->check()) {
+            abort(403);
+        }
+
+        $post->update([
+            'favourite' => !$post->favourite
         ]);
 
         return redirect('/');
@@ -90,7 +102,7 @@ class ListController extends Controller
             ]);
         }
 
-        $query = auth()->user()->userList()->latest();
+        $query = auth()->user()->userList()->orderBy('completed', 'asc')->orderBy('dueDate', 'desc')->latest();
         $allPosts = auth()->user()->userList()->latest()->get(); 
 
         if (request('filter') === 'today') {
@@ -107,6 +119,10 @@ class ListController extends Controller
 
         if(request('filter') === 'completed') {
             $query->where('completed', true);
+        }
+
+        if(request('filter') === 'favourite') {
+            $query->where('favourite', true);
         }
 
         $posts = $query->get();

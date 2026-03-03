@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['list', 'user_id', 'dueDate', 'completed'];
+    protected $fillable = ['list', 'user_id', 'dueDate', 'completed', 'favourite'];
 
     protected $casts = [
         'dueDate' => 'date',
-        'completed' => 'boolean'
+        'completed' => 'boolean',
+        'favourite' => 'boolean'
     ];
 
     public function user() {

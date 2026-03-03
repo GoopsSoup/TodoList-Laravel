@@ -23,7 +23,9 @@ Route::middleware('auth' , 'verified')->group(function (){
     //delete
     Route::delete('/delete-list/{post}', [ListController::class, 'deleteList']);
     //checkmark
-    Route::patch('/posts/{post}/completed', [ListController::class,'check']);
+    Route::patch('/posts/{post}/completed', [ListController::class, 'check']);
+    //favourite
+    Route::patch('/posts/{post}/favourite', [ListController::class, 'fav']);
 });
 
 

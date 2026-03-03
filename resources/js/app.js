@@ -89,26 +89,22 @@ window.closeDeleteModal = function closeDeleteModal() {
 );
 
     // Sidebar
-    const toggle = document.getElementById('sidebarToggle');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
+const toggle = document.getElementById('sidebarToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebarOverlay');
 
-    toggle.addEventListener('click', () => {
-        const isOpen = !sidebar.classList.contains('-translate-x-full');
-        if (isOpen) {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.remove('opacity-100', 'pointer-events-auto');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-        } else {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('opacity-100', 'pointer-events-auto');
-        }
-    });
-
-    overlay.addEventListener('click', () => {
+toggle.addEventListener('click', () => {
+    const isOpen = !sidebar.classList.contains('-translate-x-full');
+    if (isOpen) {
         sidebar.classList.add('-translate-x-full');
-        overlay.classList.remove('opacity-100', 'pointer-events-auto');
-        overlay.classList.add('opacity-0', 'pointer-events-none');
-    });
+    } else {
+        sidebar.classList.remove('-translate-x-full');
+    }
+});
+
+overlay.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+});
 
