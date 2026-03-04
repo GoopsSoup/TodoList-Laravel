@@ -6,7 +6,7 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', [ListController::class, 'filterList']);
+Route::get('/counter', [ListController::class, 'filterList']);
     
 //User
 

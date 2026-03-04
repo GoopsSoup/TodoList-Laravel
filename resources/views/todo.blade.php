@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TaskFlow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,7 +97,7 @@
     </style>
 </head>
 
-
+@livewireScripts
 <body class="bg-[#0d0d12] text-[#f0eff8] min-h-screen">
 
     <div class="orb-1"></div>
