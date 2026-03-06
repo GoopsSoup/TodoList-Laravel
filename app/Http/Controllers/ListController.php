@@ -127,6 +127,9 @@ class ListController extends Controller
 
         $posts = $query->get();
 
+        if(request()->ajax()) {
+            return view('partials.todo-js', compact('posts'));
+        }
         // $posts = Post::where('user_id', auth()->id())->get();
 
         return view('todo', compact('allPosts', 'posts'));

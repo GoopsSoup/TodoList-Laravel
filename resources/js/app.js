@@ -108,3 +108,33 @@ overlay.addEventListener('click', () => {
     overlay.classList.add('opacity-0', 'pointer-events-none');
 });
 
+
+document.querySelectorAll('.filter-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+
+        e.preventDefault()
+
+        const url = this.getAttribute("href")
+
+        fetch(url, {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(res => res.text())
+        .then(html => {
+
+            document.querySelector("#task-container").innerHTML = html
+
+            history.pushState({}, "", url)
+
+            document.querySelectorAll('.filter-link').forEach(l => {
+                l.classList.remove("bg-[#7c6dfa]/20", "text-[#7c6dfa]")
+                l.classList.add("hover:text-white/65", "hover:bg-white/4", "text-white/35")
+            })
+
+            this.classList.add("bg-[#7c6dfa]/20")
+            this.classList.remove("hover:text-white/65", "hover:bg-white/4", "text-white/35")
+        })
+    })
+})
