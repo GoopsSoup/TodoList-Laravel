@@ -256,7 +256,7 @@
                    
                 </div>
                     <div class="hidden">
-                        No favourites task yet
+                        No favourite task yet
                     </div>        
                 @empty
                 <div class="flex mt-6 justify-center items-center gap-4 ">
