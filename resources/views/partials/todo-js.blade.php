@@ -10,7 +10,6 @@
             </svg>
         </button>
     </form>
-
                         
     <span class="font-display text-[14px] font-bold text-white/18 w-5 text-right shrink-0">
         {{ str_pad($index + 1, 0, '0', STR_PAD_LEFT) }}

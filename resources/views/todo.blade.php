@@ -152,7 +152,10 @@
 
                 {{-- semua list --}}
                 <a href="/?filter=all"
-                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link text-white/35 hover:text-white/65 hover:bg-white/4">
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
+                    {{ request('filter') === 'all' 
+                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
+                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#ffffff59" fill-rule="evenodd" d="M3 13.5a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h9.25a.75.75 0 0 0 0-1.5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.75a.75.75 0 0 0-1.5 0V13a.5.5 0 0 1-.5.5H3Zm12.78-8.82a.75.75 0 0 0-1.06-1.06L9.162 9.177L7.289 7.241a.75.75 0 1 0-1.078 1.043l2.403 2.484a.75.75 0 0 0 1.07.01L15.78 4.68Z" clip-rule="evenodd"/></svg>
                     All Tasks
                     @auth
@@ -164,7 +167,10 @@
 
                 {{-- upcoming    --}}
                 <a href="/?filter=upcoming"
-                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link text-white/35 hover:text-white/65 hover:bg-white/4">
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
+                    {{ request('filter') === 'upcoming' 
+                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
+                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8l4 4m9-4c0 7.18-5.82 13-13 13S3 23.18 3 16S8.82 3 16 3s13 5.82 13 13Z"/></svg>
                     Upcoming
                     @auth
@@ -176,7 +182,10 @@
 
                 {{-- hari ini --}}
                 <a href="/?filter=today" 
-                class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link text-white/35 hover:text-white/65 hover:bg-white/4">
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
+                    {{ request('filter') === 'today' 
+                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
+                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><rect width="416" height="384" x="48" y="80" fill="none" stroke="#ffffff59" stroke-linejoin="round" stroke-width="32" rx="48"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"/><rect width="96" height="96" x="112" y="224" fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="13"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 160H48"/></svg>
                     Today
                     @auth
@@ -188,7 +197,10 @@
 
                 {{-- overdue --}}
                 <a href="/?filter=overdue" 
-                class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link text-white/35 hover:text-white/65 hover:bg-white/4">
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
+                    {{ request('filter') === 'overdue' 
+                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
+                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path d="M17.75 3A3.25 3.25 0 0 1 21 6.25v5.772a6.471 6.471 0 0 0-1.5-.709V8.5h-15v9.25c0 .966.784 1.75 1.75 1.75h5.063c.173.534.412 1.037.709 1.5H6.25A3.25 3.25 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.5zm0 1.5H6.25A1.75 1.75 0 0 0 4.5 6.25V7h15v-.75a1.75 1.75 0 0 0-1.75-1.75z" fill="#FFFFFF59"/><path d="M23 17.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0zM17.5 14a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-.5-.5zm0 7.125a.625.625 0 1 0 0-1.25a.625.625 0 0 0 0 1.25z" fill="#FFFFFF59"/></g></svg>
                     Overdue
                     @auth
@@ -200,7 +212,10 @@
 
                 {{-- Complete --}}
                 <a href="/?filter=completed" 
-                class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link text-white/35 hover:text-white/65 hover:bg-white/4">
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
+                    {{ request('filter') === 'completed' 
+                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
+                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
@@ -214,19 +229,20 @@
 
                 <div class="border-t border-white/5 my-2"></div>
 
-                <div class="grid grid-cols-3 gap-2 mb-7 min-h-30">
+                {{-- stats --}}
+                <div class="grid grid-cols-3 gap-2 mb-7 mt-7 min-h-30">
                     {{-- total --}}
-                    <div class="bg-[#13131a] border border-white/6 rounded-[5px] p-3.5 text-center flex flex-col justify-center">
+                    <div class="bg-[#14142d] hover:bg-[#151533]/60 border border-white/6 rounded-[2px p-3.5 text-center flex flex-col justify-center">
                         <p class="font-display font-extrabold text-4xl text-[#7c6dfa]">{{ count($allPosts) }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Total</p>
                     </div>
                     {{-- completed --}}
-                    <div class="bg-[#13131a] border border-white/6 rounded-[5px] p-3.5 text-center flex flex-col justify-center">
+                    <div class="bg-[#14142d] hover:bg-[#151533]/60 border border-white/6 rounded-[2px] p-3.5 text-center flex flex-col justify-center">
                         <p class="font-display font-extrabold text-4xl text-[#4ade80]">{{ $allPosts->where('completed')->count() }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Done</p>
                     </div>
                     {{-- no done --}}
-                    <div class="bg-[#13131a] border border-white/6 rounded-[5px] p-3.5 text-center flex flex-col justify-center">
+                    <div class="bg-[#14142d] hover:bg-[#151533]/60 border border-white/6 rounded-[2px] p-3.5 text-center flex flex-col justify-center">
                         <p class="font-display font-extrabold text-4xl text-[#fa6d9a]">{{ count($allPosts) - $allPosts->where('completed')->count() }}</p>
                         <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Pending</p>
                     </div>
@@ -332,12 +348,18 @@
 
                 {{-- Stats --}}
 
-                <div class="flex items-center gap-2 mb-3">
+                <div class="flex items-center gap-2">
                     <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20">Tasks</p>
                     <span class="text-[10px] font-display font-bold bg-[#7c6dfa]/12 text-[#7c6dfa] px-2 py-0.5 rounded-full">
                         {{ count($posts) }}
                     </span>
-                    <div class="flex-1 h-px bg-white/4"></div>
+                    <div class="flex-1 h-px bg-white/15"></div>
+                    <div class="tracking-widest bg-[#7c6dfa]/70 rounded-[2px] flex justify-center min-w-20">
+                        <p>Study</p>
+                        <div class="absolute mb-2 hidden group-hover/text:block bg-[#1c1c28] border border-[#7c6dfa]/20 text-white/75 text-xs px-3 py-2 rounded-lg z-80 max-w-xs wrap-break-words shadow-xl">
+                            Category
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Task list --}}
@@ -374,7 +396,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="mb-5">
+                <div class="mb-3">
                     <label class="block font-display text-[10px] font-bold uppercase tracking-widest text-white/25 mb-2">Task</label>
                     <input
                         id="editInput"
@@ -384,6 +406,21 @@
                         class="edit-input w-full bg-[#0d0d12] border border-white/[0.07] focus:border-[#7c6dfa]/50 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all duration-200"
                         placeholder="Task name..."
                     >
+                </div>
+
+                {{-- edit tanggalan --}}
+                <div class="sm:min-w-9 justify-center mb-8 ">
+                    <label class="block font-display text-[10px] font-bold uppercase tracking-widest text-white/25 mb-2">Date</label>
+                    <input
+                    {{ auth()->guest() ? 'disabled' : '' }}
+                    type="text" 
+                    name="dueDate"
+                    id="dueDate"
+                    class="bg-red-200 w-5 opacity-0 absolute"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6  ">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                    </svg>
                 </div>
 
                 <div class="flex items-center gap-2.5">

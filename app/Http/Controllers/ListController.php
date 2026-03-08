@@ -40,7 +40,8 @@ class ListController extends Controller
         }
 
         $listField = $request->validate([
-            'list' => 'required'
+            'list' => 'required',
+            'dueDate' => 'nullable'
         ]); 
 
         $listField['list'] = strip_tags($listField['list']);
