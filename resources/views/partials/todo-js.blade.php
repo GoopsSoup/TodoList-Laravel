@@ -1,3 +1,4 @@
+
 @forelse ($posts as $index => $post)
 <div class="task-card group flex items-center gap-3 bg-[#13131a] border border-white/6 hover:border-[#7c6dfa]/28 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] rounded-[7px] px-4 py-3.5">                    
     {{-- Centang --}}

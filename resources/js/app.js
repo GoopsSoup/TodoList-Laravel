@@ -109,7 +109,7 @@ overlay.addEventListener('click', () => {
 });
 
 
-document.querySelectorAll('.filter-link').forEach(link => {
+document.querySelectorAll('.filter-link')(link => {
     link.addEventListener('click', function(e) {
 
         e.preventDefault()
@@ -138,3 +138,5 @@ document.querySelectorAll('.filter-link').forEach(link => {
         })
     })
 })
+
+

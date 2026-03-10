@@ -151,7 +151,7 @@
 
 
                 {{-- semua list --}}
-                <a href="/?filter=all"
+                <a href="/?filter=all" 
                     class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
                     {{ request('filter') === 'all' 
                     ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 

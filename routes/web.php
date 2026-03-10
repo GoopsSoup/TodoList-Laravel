@@ -1,12 +1,41 @@
 <?php
 
-use App\Models\Post;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 Route::get('/', [ListController::class, 'filterList']);
+
+Route::get('/check-username', function (Request $request) {
+    $exists = User::where('name', $request->username)->exists();
+
+    return response()->json([
+        'available' => !$exists
+    ]);
+});
+
+Route::get('/check-email', function (Request $request) {
+
+    $email = $request->email;
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return response()->json([
+            'valid' => false,
+            'available' => false
+        ]);
+    }
+
+    $exists = User::where('email', $email)->exists();
+
+    return response()->json([
+        'valid' => true,
+        'available' => !$exists
+    ]);
+});
     
 //User
 

@@ -35,10 +35,11 @@ class ListController extends Controller
             return redirect('/register');
         } 
 
+
         if (auth()->user()->id !== $post['user_id']) {
             return redirect('/');
         }
-
+        
         $listField = $request->validate([
             'list' => 'required',
             'dueDate' => 'nullable'
