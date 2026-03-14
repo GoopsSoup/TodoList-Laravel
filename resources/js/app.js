@@ -3,140 +3,172 @@ import flatpickr from 'flatpickr';
 import "flatpickr/dist/flatpickr.min.css";
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    // ===== FLATPICKR =====
     flatpickr("#dueDate", {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
+        dateFormat: "Y-m-d",
+        enableTime: false,
+        clickOpens: true,
+    });
+
+    flatpickr("#editDueDate", {
+        dateFormat: "Y-m-d",
         enableTime: false,
     });
+
+    // Make calendar icon open the date picker
+    const dateBtn    = document.querySelector('.add-date-btn');
+    const dueDateEl  = document.getElementById('dueDate');
+    if (dateBtn && dueDateEl) {
+        dateBtn.addEventListener('click', () => {
+            if (dueDateEl._flatpickr) dueDateEl._flatpickr.open();
+        });
+    }
+
+
+    // ===== DARK / LIGHT MODE =====
+    const html          = document.documentElement;
+    const themeToggle   = document.getElementById('themeToggle');
+    const themeLabel    = document.getElementById('themeLabel');
+    const themeCheckbox = document.getElementById('themeCheckbox');
+
+    const saved = localStorage.getItem('taskflow-theme') || 'light';
+    applyTheme(saved);
+
+    function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        const isDark = theme === 'dark';
+        if (themeToggle)   themeToggle.classList.toggle('on', isDark);
+        if (themeLabel)    themeLabel.textContent = isDark ? 'Dark mode' : 'Light mode';
+        if (themeCheckbox) themeCheckbox.checked = isDark;
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('taskflow-theme', next);
+            applyTheme(next);
+        });
+    }
+
+
+    // ===== SIDEBAR MOBILE =====
+    const sidebarToggle  = document.getElementById('sidebarToggle');
+    const sidebar        = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function closeSidebar() {
+        sidebar && sidebar.classList.remove('open');
+        sidebarOverlay && sidebarOverlay.classList.remove('visible');
+    }
+
+    sidebarToggle && sidebarToggle.addEventListener('click', () => {
+        const isOpen = sidebar.classList.contains('open');
+        isOpen ? closeSidebar() : (sidebar.classList.add('open'), sidebarOverlay.classList.add('visible'));
+    });
+
+    sidebarOverlay && sidebarOverlay.addEventListener('click', closeSidebar);
+
+
+    // ===== FILTER LINKS (AJAX) =====
+    document.addEventListener('click', function (e) {
+        const link = e.target.closest('.filter-link');
+        if (!link) return;
+        e.preventDefault();
+
+        const url = link.getAttribute('href');
+
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(res => res.text())
+            .then(html => {
+                const container = document.querySelector('#task-container');
+                if (container) container.innerHTML = html;
+                history.pushState({}, '', url);
+
+                document.querySelectorAll('.filter-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                if (window.innerWidth < 1024) closeSidebar();
+            })
+            .catch(err => console.error('Filter error:', err));
+    });
+
+
+    // ===== ESCAPE TO CLOSE MODALS =====
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeEditModal();
+            closeDeleteModal();
+        }
+    });
+
+    // Close modals clicking backdrop
+    document.getElementById('editModal')?.addEventListener('click', function (e) {
+        if (e.target === this) closeEditModal();
+    });
+    document.getElementById('deleteModal')?.addEventListener('click', function (e) {
+        if (e.target === this) closeDeleteModal();
+    });
+
 });
 
-window.openEditModal = function openEditModal(id, currentText) {
+
+// ===== EDIT MODAL =====
+window.openEditModal = function (id, currentText) {
     const modal = document.getElementById('editModal');
     const form  = document.getElementById('editForm');
     const input = document.getElementById('editInput');
     const box   = document.getElementById('editModalBox');
 
-    form.action = '/edit-list/' + id;
-    input.value = currentText;
+    form.action  = '/edit-list/' + id;
+    input.value  = currentText;
 
     modal.classList.remove('hidden');
-    box.style.transform = 'scale(0.95) translateY(8px)';
-    box.style.opacity = '0';
+    animateIn(box);
+    input.focus();
+    input.select();
+};
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            box.style.transition = 'transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease';
-            box.style.transform = 'scale(1) translateY(0)';
-            box.style.opacity = '1';
-            input.focus();
-            input.select();
-        });
-    });
-}
-
-window.closeEditModal = function closeEditModal() {
+window.closeEditModal = function () {
     const modal = document.getElementById('editModal');
     const box   = document.getElementById('editModalBox');
+    animateOut(box, () => modal.classList.add('hidden'));
+};
 
-    box.style.transform = 'scale(0.95) translateY(8px)';
-    box.style.opacity = '0';
-    setTimeout(() => modal.classList.add('hidden'), 200);
-}
 
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeEditModal();
-    }
-);
-
-window.openDeleteModal = function openDeleteModal(id, currentText) {
+// ===== DELETE MODAL =====
+window.openDeleteModal = function (id) {
     const modal = document.getElementById('deleteModal');
     const form  = document.getElementById('deleteForm');
-    const input = document.getElementById('editInput');
     const box   = document.getElementById('DeleteBox');
 
-    form.action = `/delete-list/${id}`;
-    input.value = currentText;
+    form.action = '/delete-list/' + id;
 
     modal.classList.remove('hidden');
-    box.style.transform = 'scale(0.95) translateY(8px)';
-    box.style.opacity = '0';
+    animateIn(box);
+};
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            box.style.transition = 'transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease';
-            box.style.transform = 'scale(1) translateY(0)';
-            box.style.opacity = '1';
-            input.focus();
-            input.select();
-        });
-    });
-}
-
-window.closeDeleteModal = function closeDeleteModal() {
+window.closeDeleteModal = function () {
     const modal = document.getElementById('deleteModal');
     const box   = document.getElementById('DeleteBox');
+    animateOut(box, () => modal.classList.add('hidden'));
+};
 
-    box.style.transform = 'scale(0.95) translateY(8px)';
-    box.style.opacity = '0';
-    setTimeout(() => modal.classList.add('hidden'), 200);
+
+// ===== ANIMATION HELPERS =====
+function animateIn(el) {
+    el.style.opacity   = '0';
+    el.style.transform = 'scale(0.97) translateY(6px)';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        el.style.transition = 'opacity 0.18s ease, transform 0.2s ease';
+        el.style.opacity    = '1';
+        el.style.transform  = 'scale(1) translateY(0)';
+    }));
 }
 
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeEditModal();
-    }
-);
-
-    // Sidebar
-const toggle = document.getElementById('sidebarToggle');
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('sidebarOverlay');
-
-toggle.addEventListener('click', () => {
-    const isOpen = !sidebar.classList.contains('-translate-x-full');
-    if (isOpen) {
-        sidebar.classList.add('-translate-x-full');
-    } else {
-        sidebar.classList.remove('-translate-x-full');
-    }
-});
-
-overlay.addEventListener('click', () => {
-    sidebar.classList.add('-translate-x-full');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
-    overlay.classList.add('opacity-0', 'pointer-events-none');
-});
-
-
-document.querySelectorAll('.filter-link')(link => {
-    link.addEventListener('click', function(e) {
-
-        e.preventDefault()
-
-        const url = this.getAttribute("href")
-
-        fetch(url, {
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        })
-        .then(res => res.text())
-        .then(html => {
-
-            document.querySelector("#task-container").innerHTML = html
-
-            history.pushState({}, "", url)
-
-            document.querySelectorAll('.filter-link').forEach(l => {
-                l.classList.remove("bg-[#7c6dfa]/20", "text-[#7c6dfa]")
-                l.classList.add("hover:text-white/65", "hover:bg-white/4", "text-white/35")
-            })
-
-            this.classList.add("bg-[#7c6dfa]/20")
-            this.classList.remove("hover:text-white/65", "hover:bg-white/4", "text-white/35")
-        })
-    })
-})
-
-
+function animateOut(el, cb) {
+    el.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+    el.style.opacity    = '0';
+    el.style.transform  = 'scale(0.97) translateY(4px)';
+    setTimeout(cb, 150);
+}

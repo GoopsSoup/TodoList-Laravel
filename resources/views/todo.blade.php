@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,473 +7,683 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TaskFlow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'DM Sans', sans-serif; }
-        .font-display { font-family: 'Syne', sans-serif; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .sidebar-scroll::-webkit-scrollbar { width: 3px; }
-        .sidebar-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
-
-        .task-scroll::-webkit-scrollbar { width: 4px; }
-        .task-scroll::-webkit-scrollbar-thumb { background: rgba(124,109,250,0.3); border-radius: 10px; }
-
-        .task-input:focus { box-shadow: 0 0 0 2px rgba(124,109,250,0.45), 0 0 30px rgba(124,109,250,0.12); }
-
-        .task-card { transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; }
-        .task-card:hover { transform: translateY(-1px); }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .task-card { animation: slideIn 0.25s ease both; }
-
-        .orb-1 {
-            position: fixed; pointer-events: none; z-index: 0;
-            width: 500px; height: 500px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(124,109,250,0.10) 0%, transparent 70%);
-            top: -150px; left: 80px;
-        }
-        .orb-2 {
-            position: fixed; pointer-events: none; z-index: 0;
-            width: 400px; height: 400px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(250,109,154,0.07) 0%, transparent 70%);
-            bottom: -80px; right: 40px;
+        :root, [data-theme="light"] {
+            --bg:         #ffffff;
+            --bg-surface: #f8f9fa;
+            --bg-hover:   #f1f3f4;
+            --bg-sidebar: #f8f9fa;
+            --border:     #e0e0e0;
+            --text:       #202124;
+            --text-2:     #5f6368;
+            --text-3:     #9aa0a6;
+            --accent:     #1a73e8;
+            --accent-bg:  #e8f0fe;
+            --accent-t:   #1a73e8;
+            --danger:     #d93025;
+            --danger-bg:  #fce8e6;
+            --green:      #188038;
+            --green-bg:   #e6f4ea;
+            --warn:       #e37400;
+            --warn-bg:    #fef7e0;
+            --star:       #f9ab00;
         }
 
-        /* From Uiverse.io by cuzpq */ 
-        .theme-checkbox {
-        --toggle-size: 8px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        width: 6.25em;
-        height: 3.125em;
-        background: -webkit-gradient(linear, left top, right top, color-stop(50%, #efefef), color-stop(50%, #2a2a2a)) no-repeat;
-        background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
-        background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
-        background-size: 205%;
-        background-position: 0;
-        -webkit-transition: 0.4s;
-        -o-transition: 0.4s;
-        transition: 0.4s;
-        border-radius: 99em;
-        position: relative;
-        cursor: pointer;
-        font-size: var(--toggle-size);
+        [data-theme="dark"] {
+            --bg:         #202124;
+            --bg-surface: #292a2d;
+            --bg-hover:   #35363a;
+            --bg-sidebar: #292a2d;
+            --border:     #3c4043;
+            --text:       #e8eaed;
+            --text-2:     #9aa0a6;
+            --text-3:     #5f6368;
+            --accent:     #8ab4f8;
+            --accent-bg:  #1e2a3a;
+            --accent-t:   #8ab4f8;
+            --danger:     #f28b82;
+            --danger-bg:  #2d1f1f;
+            --green:      #81c995;
+            --green-bg:   #1e2d23;
+            --warn:       #fdd663;
+            --warn-bg:    #2d2210;
+            --star:       #fdd663;
         }
 
-        .theme-checkbox::before {
-        content: "";
-        width: 2.25em;
-        height: 2.25em;
-        position: absolute;
-        top: 0.438em;
-        left: 0.438em;
-        background: -webkit-gradient(linear, left top, right top, color-stop(50%, #efefef), color-stop(50%, #2a2a2a)) no-repeat;
-        background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
-        background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
-        background-size: 205%;
-        background-position: 100%;
-        border-radius: 50%;
-        -webkit-transition: 0.4s;
-        -o-transition: 0.4s;
-        transition: 0.4s;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.5;
+            transition: background 0.2s, color 0.2s;
         }
 
-        .theme-checkbox:checked::before {
-        left: calc(100% - 2.25em - 0.438em);
-        background-position: 0;
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        /* ===== NAVBAR ===== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
         }
 
-        .theme-checkbox:checked {
-        background-position: 100%;
+        .header-left { display: flex; align-items: center; gap: 8px; }
+
+        .hamburger {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: none; border: none;
+            cursor: pointer; color: var(--text-2);
+            transition: background 0.15s;
+        }
+        .hamburger:hover { background: var(--bg-hover); }
+        @media (max-width: 1023px) { .hamburger { display: flex; } }
+
+        .logo { font-size: 18px; font-weight: 600; color: var(--accent); letter-spacing: -0.3px; }
+
+        .header-right { display: flex; align-items: center; gap: 8px; }
+        .user-name { font-size: 13px; color: var(--text-2); }
+
+        .btn {
+            display: inline-flex; align-items: center;
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+            padding: 6px 16px; border-radius: 4px; border: none;
+            cursor: pointer; text-decoration: none;
+            transition: all 0.15s; white-space: nowrap;
+        }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--accent); }
+        .btn-outline:hover { background: var(--accent-bg); border-color: var(--accent); }
+        .btn-filled { background: var(--accent); color: #fff; }
+        .btn-filled:hover { background: #1557b0; }
+        .btn-text { background: transparent; border: 1px solid transparent; color: var(--danger); padding: 6px 12px; }
+        .btn-text:hover { background: var(--danger-bg); }
+
+        /* ===== LAYOUT ===== */
+        .layout { display: flex; min-height: calc(100vh - 56px); }
+
+        /* ===== SIDEBAR ===== */
+        #sidebar {
+            width: 256px; flex-shrink: 0;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            position: sticky; top: 56px;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+            transition: background 0.2s, border-color 0.2s;
         }
 
-        #sidebar { transition: transform 0.3s ease; }
-        #sidebarOverlay { transition: opacity 0.3s ease; }
+        @media (max-width: 1023px) {
+            #sidebar {
+                position: fixed; top: 56px; left: 0; z-index: 50;
+                transform: translateX(-100%);
+                transition: transform 0.2s ease;
+            }
+            #sidebar.open { transform: translateX(0); }
+        }
+
+        #sidebarOverlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4); z-index: 49;
+        }
+        #sidebarOverlay.visible { display: block; }
+
+        .sidebar-section { padding: 8px 0; }
+        .sidebar-label {
+            font-size: 11px; font-weight: 600; color: var(--text-3);
+            letter-spacing: 0.08em; text-transform: uppercase;
+            padding: 8px 16px 4px; display: block;
+        }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 16px; font-size: 14px; color: var(--text-2);
+            text-decoration: none;
+            border-radius: 0 24px 24px 0; margin-right: 8px;
+            transition: all 0.15s; cursor: pointer;
+        }
+        .nav-item:hover { background: var(--bg-hover); color: var(--text); }
+        .nav-item.active { background: var(--accent-bg); color: var(--accent); font-weight: 500; }
+        .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.7; }
+        .nav-item.active svg { opacity: 1; }
+
+        .nav-badge {
+            margin-left: auto; font-size: 12px; font-weight: 500;
+            color: var(--text-2); background: var(--bg-hover);
+            padding: 1px 7px; border-radius: 10px; min-width: 22px; text-align: center;
+        }
+        .nav-item.active .nav-badge { background: var(--accent-bg); color: var(--accent); }
+        .nav-badge.red   { background: var(--danger-bg); color: var(--danger); }
+        .nav-badge.green { background: var(--green-bg);  color: var(--green); }
+
+        .sidebar-divider { height: 1px; background: var(--border); margin: 4px 16px; }
+
+        .cat-select {
+            display: block; width: calc(100% - 32px); margin: 4px 16px;
+            font-family: 'Inter', sans-serif; font-size: 13px;
+            padding: 8px 28px 8px 10px;
+            border: 1px solid var(--border); border-radius: 4px;
+            background: var(--bg); color: var(--text);
+            cursor: pointer; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239aa0a6' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 10px center;
+        }
+        .cat-select:focus { outline: none; border-color: var(--accent); }
+
+        .stats-row { display: flex; gap: 8px; padding: 12px 16px; }
+        .stat-box {
+            flex: 1; background: var(--bg);
+            border: 1px solid var(--border); border-radius: 8px;
+            padding: 10px 8px; text-align: center;
+        }
+        .stat-num { font-size: 20px; font-weight: 600; line-height: 1; }
+        .stat-num.blue  { color: var(--accent); }
+        .stat-num.green { color: var(--green); }
+        .stat-num.red   { color: var(--danger); }
+        .stat-lbl { font-size: 10px; color: var(--text-3); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .fav-item { display: flex; align-items: center; gap: 10px; padding: 7px 16px; font-size: 13px; color: var(--text-2); }
+        .fav-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .fav-date { font-size: 11px; color: var(--text-3); flex-shrink: 0; }
+        .no-fav { padding: 12px 16px; font-size: 13px; color: var(--text-3); }
+
+        .sidebar-footer {
+            margin-top: auto; padding: 12px 16px;
+            border-top: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+            font-size: 13px; color: var(--text-2);
+        }
+        .toggle-pill {
+            position: relative; width: 40px; height: 22px;
+            border-radius: 11px; background: var(--border);
+            cursor: pointer; transition: background 0.2s;
+            flex-shrink: 0; border: none;
+        }
+        .toggle-pill.on { background: var(--accent); }
+        .toggle-pill::after {
+            content: ''; position: absolute;
+            top: 3px; left: 3px; width: 16px; height: 16px;
+            border-radius: 50%; background: #fff;
+            transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .toggle-pill.on::after { left: 21px; }
+        .theme-checkbox { display: none; }
+
+        /* ===== MAIN ===== */
+        main { flex: 1; min-width: 0; padding: 32px 40px; max-width: 800px; }
+        @media (max-width: 768px) { main { padding: 20px 16px; } }
+
+        .page-heading { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .page-sub { font-size: 13px; color: var(--text-3); margin-bottom: 24px; }
+
+        .guest-notice {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 14px; background: var(--warn-bg);
+            border: 1px solid var(--warn); border-radius: 6px;
+            font-size: 13px; color: var(--warn); margin-bottom: 20px;
+        }
+
+        /* ===== ADD FORM ===== */
+        .add-form {
+            display: flex; align-items: center;
+            border: 1px solid var(--border); border-radius: 8px;
+            background: var(--bg); overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .add-form:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+        }
+        .add-input {
+            flex: 1; min-width: 0;
+            font-family: 'Inter', sans-serif; font-size: 14px;
+            padding: 12px 14px; background: transparent;
+            border: none; outline: none; color: var(--text);
+        }
+        .add-input::placeholder { color: var(--text-3); }
+        .add-input:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .add-sep { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
+
+        .add-date-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px;
+            background: none; border: none; color: var(--text-3);
+            cursor: pointer; flex-shrink: 0; transition: color 0.15s;
+            position: relative;
+        }
+        .add-date-btn:hover { color: var(--accent); }
+        .date-input-hidden { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+
+        .add-cat-select {
+            font-family: 'Inter', sans-serif; font-size: 13px;
+            padding: 0 10px; height: 44px;
+            background: none; border: none;
+            border-left: 1px solid var(--border);
+            color: var(--text-2); cursor: pointer; outline: none;
+            min-width: 110px; max-width: 140px;
+        }
+
+        .add-btn {
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+            padding: 0 20px; height: 44px;
+            background: var(--accent); border: none;
+            color: #fff; cursor: pointer; flex-shrink: 0;
+            transition: background 0.15s;
+        }
+        .add-btn:hover { background: #1557b0; }
+        .add-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+        /* ===== CATEGORY BAR ===== */
+        .cat-bar {
+            display: flex; align-items: center;
+            flex-wrap: wrap; gap: 6px; margin-bottom: 20px;
+        }
+        .cat-chip {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 12px; padding: 3px 8px 3px 10px;
+            border-radius: 16px; background: var(--bg-surface);
+            border: 1px solid var(--border); color: var(--text-2);
+        }
+        .cat-del-btn {
+            background: none; border: none; cursor: pointer;
+            color: var(--text-3); font-size: 14px; line-height: 1;
+            padding: 0; transition: color 0.15s; display: flex; align-items: center;
+        }
+        .cat-del-btn:hover { color: var(--danger); }
+        .cat-add-wrap { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+        .cat-add-input {
+            font-family: 'Inter', sans-serif; font-size: 13px;
+            padding: 5px 10px; border: 1px solid var(--border);
+            border-radius: 4px; background: var(--bg); color: var(--text);
+            width: 130px; outline: none; transition: border-color 0.15s;
+        }
+        .cat-add-input::placeholder { color: var(--text-3); }
+        .cat-add-input:focus { border-color: var(--accent); }
+        .cat-add-btn {
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+            padding: 5px 12px; background: var(--accent); border: none;
+            border-radius: 4px; color: #fff; cursor: pointer; white-space: nowrap;
+            transition: background 0.15s;
+        }
+        .cat-add-btn:hover { background: #1557b0; }
+
+        /* ===== LIST HEADER ===== */
+        .list-header { display: flex; align-items: center; margin-bottom: 8px; gap: 8px; }
+        .list-title { font-size: 13px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; }
+        .list-count { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-bg); padding: 1px 8px; border-radius: 10px; }
+
+        /* ===== TASK ITEMS ===== */
+        #task-container { display: flex; flex-direction: column; }
+
+        .task-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.1s;
+            animation: fadeIn 0.15s ease;
+        }
+        .task-item:first-child { border-top: 1px solid var(--border); }
+        .task-item:hover { background: var(--bg-hover); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .check-form { display: flex; align-items: center; }
+        .check-btn {
+            width: 18px; height: 18px; border-radius: 50%;
+            border: 2px solid var(--border); background: none;
+            cursor: pointer; display: flex; align-items: center;
+            justify-content: center; color: transparent; flex-shrink: 0;
+            transition: all 0.15s;
+        }
+        .check-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .check-btn.checked { border-color: var(--green); background: var(--green); color: #fff; }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .dot-blue   { background: var(--accent); }
+        .dot-red    { background: var(--danger); }
+        .dot-orange { background: var(--warn); }
+        .dot-yellow { background: var(--star); }
+
+        .task-body { flex: 1; min-width: 0; }
+        .task-name { font-size: 14px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .task-name.done    { text-decoration: line-through; color: var(--text-3); }
+        .task-name.starred { color: var(--star); }
+
+        .task-meta { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+        .task-due { font-size: 12px; color: var(--text-3); }
+        .task-due.overdue { color: var(--danger); }
+        .task-due.done    { text-decoration: line-through; color: var(--text-3); }
+        .task-cat-tag { font-size: 11px; padding: 1px 7px; border-radius: 10px; background: var(--accent-bg); color: var(--accent-t); }
+
+        .task-actions { display: flex; align-items: center; gap: 2px; opacity: 0; transition: opacity 0.15s; }
+        .task-item:hover .task-actions { opacity: 1; }
+        /* Always show if starred */
+        .task-actions:has(.starred-on) { opacity: 1; }
+
+        .icon-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: none; border: none; cursor: pointer;
+            color: var(--text-3); transition: background 0.15s, color 0.15s;
+        }
+        .icon-btn:hover { background: var(--bg-surface); color: var(--text); }
+        .icon-btn.star-btn:hover { color: var(--star); }
+        .icon-btn.edit-btn:hover { color: var(--accent); background: var(--accent-bg); }
+        .icon-btn.del-btn:hover  { color: var(--danger); background: var(--danger-bg); }
+        .icon-btn.starred-on { color: var(--star); }
+
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 20px; text-align: center; }
+        .empty-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--accent); }
+        .empty-title { font-size: 15px; font-weight: 500; color: var(--text-2); margin-bottom: 4px; }
+        .empty-sub   { font-size: 13px; color: var(--text-3); }
+
+        /* ===== MODALS ===== */
+        .modal-bg {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            z-index: 200; display: flex; align-items: center;
+            justify-content: center; padding: 16px;
+        }
+        .modal-bg.hidden { display: none; }
+        .modal {
+            background: var(--bg); border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            padding: 24px; width: 100%; max-width: 440px; position: relative;
+        }
+        .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+        .modal-title { font-size: 16px; font-weight: 600; color: var(--text); }
+        .modal-sub   { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+        .modal-close {
+            display: flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: none; border: none; cursor: pointer;
+            color: var(--text-3); transition: background 0.15s; flex-shrink: 0;
+        }
+        .modal-close:hover { background: var(--bg-hover); color: var(--text); }
+        .modal-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-2); margin-bottom: 6px; }
+        .modal-input {
+            width: 100%; font-family: 'Inter', sans-serif; font-size: 14px;
+            padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px;
+            background: var(--bg); color: var(--text); outline: none; margin-bottom: 16px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .modal-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,115,232,0.12); }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+        .modal-save {
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+            padding: 8px 20px; background: var(--accent); border: none;
+            border-radius: 4px; color: #fff; cursor: pointer; transition: background 0.15s;
+        }
+        .modal-save:hover { background: #1557b0; }
+        .modal-cancel {
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+            padding: 8px 16px; background: none; border: 1px solid var(--border);
+            border-radius: 4px; color: var(--text-2); cursor: pointer; transition: background 0.15s;
+        }
+        .modal-cancel:hover { background: var(--bg-hover); }
+        .modal-delete {
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+            padding: 8px 20px; background: var(--danger); border: none;
+            border-radius: 4px; color: #fff; cursor: pointer; transition: background 0.15s;
+        }
+        .modal-delete:hover { background: #c5221f; }
     </style>
 </head>
 
+<body>
 
-<body class="bg-[#0d0d12] text-[#f0eff8] min-h-screen">
-
-    <div class="orb-1"></div>
-    <div class="orb-2"></div>
-
-    {{-- ===== NAVBAR ===== --}}
-    <header class="sticky top-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-[#0d0d12]/80 backdrop-blur-xl border-b border-white/6">
-        <div class="flex items-center gap-3">
-            <button id="sidebarToggle" class="lg:hidden flex flex-col gap-1.25 p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
-                <span class="w-5 h-0.5 bg-white/50 rounded"></span>
-                <span class="w-5 h-0.5 bg-white/50 rounded"></span>
-                <span class="w-3.5 h-0.5 bg-white/50 rounded"></span>
+    <header>
+        <div class="header-left">
+            <button class="hamburger" id="sidebarToggle" aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
             </button>
-            <span class="font-display font-extrabold text-[1.1rem] bg-linear-to-r from-[#7c6dfa] to-[#fa6d9a] bg-clip-text text-transparent tracking-tight">
-                TaskFlow
-            </span>
+            <span class="logo">TaskFlow</span>
         </div>
-
-        <div class="flex items-center gap-2">
+        <div class="header-right">
             @auth
-            <span class="hidden sm:block text-xs text-white/25 mr-1">{{ auth()->user()->name ?? '' }}</span>
-            <form action="/logout" method="POST">
-                @csrf
-                <button class="font-display text-xs font-bold tracking-wide text-[#f87171] px-3.5 py-1.5 rounded-lg border border-[#f87171]/20 bg-[#f87171]/5 hover:bg-[#f87171]/15 transition-colors cursor-pointer">
-                    Sign out
-                </button>
-            </form>
+                <span class="user-name">{{ auth()->user()->name ?? '' }}</span>
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-text">Sign out</button>
+                </form>
             @else
-            <a href="/register" class="font-display text-xs font-bold tracking-wide text-white/35 px-3.5 py-1.5 rounded-lg border border-white/[0.07] hover:text-white/60 hover:border-white/15 transition-colors">
-                Log in
-            </a>
-            <a href="/register" class="font-display text-xs font-bold tracking-wide text-white px-3.5 py-1.5 rounded-lg bg-[#7c6dfa] hover:bg-[#6b5ce7] transition-colors">
-                Register
-            </a>
+                <a href="/register" class="btn btn-outline">Log in</a>
+                <a href="/register" class="btn btn-filled">Register</a>
             @endauth
         </div>
     </header>
 
-    {{-- Mobile overlay --}}
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 opacity-0 pointer-events-none lg:hidden"></div>
+    <div id="sidebarOverlay"></div>
 
-    <div class="relative z-10 flex min-h-[calc(100vh-3.5rem)]">
+    <div class="layout">
 
-        {{-- ===== SIDEBAR ===== --}}
-        <aside id="sidebar"
-            class="fixed lg:sticky top-14 left-0 h-[calc(100vh-3.5rem)] w-64 bg-[#111118] border-r border-white/6 flex flex-col z-40 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
+        <aside id="sidebar">
+            <div class="sidebar-section">
+                <span class="sidebar-label">Menu</span>
 
-            <nav class="flex-1 p-3 space-y-0.5">
-
-                {{-- Main nav --}}
-                <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20 px-2 pt-3 pb-2">Menu</p>
-
-
-                {{-- semua list --}}
-                <a href="/?filter=all" 
-                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
-                    {{ request('filter') === 'all' 
-                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
-                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#ffffff59" fill-rule="evenodd" d="M3 13.5a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h9.25a.75.75 0 0 0 0-1.5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.75a.75.75 0 0 0-1.5 0V13a.5.5 0 0 1-.5.5H3Zm12.78-8.82a.75.75 0 0 0-1.06-1.06L9.162 9.177L7.289 7.241a.75.75 0 1 0-1.078 1.043l2.403 2.484a.75.75 0 0 0 1.07.01L15.78 4.68Z" clip-rule="evenodd"/></svg>
+                <a href="/?filter=all" class="nav-item {{ request('filter') === 'all' ? 'active' : '' }} filter-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                     All Tasks
-                    @auth
-                    <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full"> {{--hover:text-white/65 hover:bg-white/4 bg-[#7c6dfa]/10--}}
-                        {{ $allPosts->count() }}
-                    </span>
-                    @endauth
+                    @auth <span class="nav-badge">{{ $allPosts->count() }}</span> @endauth
                 </a>
 
-                {{-- upcoming    --}}
-                <a href="/?filter=upcoming"
-                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
-                    {{ request('filter') === 'upcoming' 
-                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
-                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8l4 4m9-4c0 7.18-5.82 13-13 13S3 23.18 3 16S8.82 3 16 3s13 5.82 13 13Z"/></svg>
+                <a href="/?filter=upcoming" class="nav-item {{ request('filter') === 'upcoming' ? 'active' : '' }} filter-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     Upcoming
-                    @auth
-                    <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
-                        {{ $allPosts->where('dueDate', '>', today())->count() }}
-                    </span>
-                    @endauth
+                    @auth <span class="nav-badge">{{ $allPosts->where('dueDate', '>', today())->count() }}</span> @endauth
                 </a>
 
-                {{-- hari ini --}}
-                <a href="/?filter=today" 
-                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
-                    {{ request('filter') === 'today' 
-                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
-                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><rect width="416" height="384" x="48" y="80" fill="none" stroke="#ffffff59" stroke-linejoin="round" stroke-width="32" rx="48"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"/><rect width="96" height="96" x="112" y="224" fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="13"/><path fill="none" stroke="#ffffff59" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 160H48"/></svg>
+                <a href="/?filter=today" class="nav-item {{ request('filter') === 'today' ? 'active' : '' }} filter-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Today
-                    @auth
-                    <span class="ml-auto text-[10px] font-display font-bold bg-[#7c6dfa]/20 text-[#7c6dfa] px-1.5 py-0.5 rounded-full">
-                        {{ $allPosts->where('dueDate', today())->count() }}
-                    </span>
-                    @endauth
+                    @auth <span class="nav-badge">{{ $allPosts->where('dueDate', today())->count() }}</span> @endauth
                 </a>
 
-                {{-- overdue --}}
-                <a href="/?filter=overdue" 
-                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
-                    {{ request('filter') === 'overdue' 
-                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
-                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
-                    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path d="M17.75 3A3.25 3.25 0 0 1 21 6.25v5.772a6.471 6.471 0 0 0-1.5-.709V8.5h-15v9.25c0 .966.784 1.75 1.75 1.75h5.063c.173.534.412 1.037.709 1.5H6.25A3.25 3.25 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.5zm0 1.5H6.25A1.75 1.75 0 0 0 4.5 6.25V7h15v-.75a1.75 1.75 0 0 0-1.75-1.75z" fill="#FFFFFF59"/><path d="M23 17.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0zM17.5 14a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-.5-.5zm0 7.125a.625.625 0 1 0 0-1.25a.625.625 0 0 0 0 1.25z" fill="#FFFFFF59"/></g></svg>
+                <a href="/?filter=overdue" class="nav-item {{ request('filter') === 'overdue' ? 'active' : '' }} filter-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                     Overdue
-                    @auth
-                    <span class="ml-auto text-[10px] font-display font-bold bg-[#de4e4e70] text-[#fa6d6d] px-1.5 py-0.5 rounded-full">
-                        {{ $allPosts->where('dueDate', '<', today())->count() }}
-                    </span>
-                    @endauth
+                    @auth <span class="nav-badge red">{{ $allPosts->where('dueDate', '<', today())->count() }}</span> @endauth
                 </a>
 
-                {{-- Complete --}}
-                <a href="/?filter=completed" 
-                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-[3px] text-sm filter-link
-                    {{ request('filter') === 'completed' 
-                    ? 'bg-[#7c6dfa]/20 text-[#7c6dfa]' 
-                    : 'text-white/35 hover:text-white/65 hover:bg-white/4' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
+                <a href="/?filter=completed" class="nav-item {{ request('filter') === 'completed' ? 'active' : '' }} filter-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     Completed
-                    @auth
-                    <span class="ml-auto text-[10px] font-display font-bold bg-[#52b14191] text-[#9efa6d] px-1.5 py-0.5 rounded-full">
-                        {{ $allPosts->where('completed')->count() }}
-                    </span>
-                    @endauth
+                    @auth <span class="nav-badge green">{{ $allPosts->where('completed')->count() }}</span> @endauth
                 </a>
+            </div>
 
-                <div class="border-t border-white/5 my-2"></div>
+            <div class="sidebar-divider"></div>
 
-                {{-- stats --}}
-                <div class="grid grid-cols-3 gap-2 mb-7 mt-7 min-h-30">
-                    {{-- total --}}
-                    <div class="bg-[#14142d] hover:bg-[#151533]/60 border border-white/6 rounded-[2px p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-4xl text-[#7c6dfa]">{{ count($allPosts) }}</p>
-                        <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Total</p>
-                    </div>
-                    {{-- completed --}}
-                    <div class="bg-[#14142d] hover:bg-[#151533]/60 border border-white/6 rounded-[2px] p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-4xl text-[#4ade80]">{{ $allPosts->where('completed')->count() }}</p>
-                        <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Done</p>
-                    </div>
-                    {{-- no done --}}
-                    <div class="bg-[#14142d] hover:bg-[#151533]/60 border border-white/6 rounded-[2px] p-3.5 text-center flex flex-col justify-center">
-                        <p class="font-display font-extrabold text-4xl text-[#fa6d9a]">{{ count($allPosts) - $allPosts->where('completed')->count() }}</p>
-                        <p class="text-[11px] text-white/25 mt-0.5 font-display uppercase tracking-wider">Pending</p>
-                    </div>
+            <div class="sidebar-section">
+                <span class="sidebar-label">Category</span>
+                <form method="GET" action="/">
+                    <select name="category" onchange="this.form.submit()" class="cat-select">
+                        <option value="">All Categories</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="filter" value="category">
+                </form>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-num blue">{{ count($allPosts) }}</div>
+                    <div class="stat-lbl">Total</div>
                 </div>
-
-                <div class="border-t border-white/5 my-2"></div>
-
-                {{-- Favorites --}}
-                <div class="flex items-center justify-between px-2 pt-1.5 pb-1">
-                    <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white">Favourites</p>
+                <div class="stat-box">
+                    <div class="stat-num green">{{ $allPosts->where('completed')->count() }}</div>
+                    <div class="stat-lbl">Done</div>
                 </div>
+                <div class="stat-box">
+                    <div class="stat-num red">{{ count($allPosts) - $allPosts->where('completed')->count() }}</div>
+                    <div class="stat-lbl">Left</div>
+                </div>
+            </div>
 
-                @php
-                    $favourites = $allPosts->where('favourite', true);
-                @endphp
+            <div class="sidebar-divider"></div>
 
-                {{-- Favorites lists --}}
+            <div class="sidebar-section">
+                <span class="sidebar-label">Favourites</span>
+                @php $favourites = $allPosts->where('favourite', true); @endphp
                 @forelse ($favourites as $fav)
-                <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[#ffffff9f] text-sm">
-                    <svg class="w-3.5 h-3.5 text-[#e0e238bc] shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <span class="truncate">
-                    {{ $fav->list }}
-                    </span>
-                    @if($fav->dueDate)
-                    <span class="ml-auto text-[10px] text-[#ffffffa7]">{{ $fav->dueDate->format('d M Y') }}</span>
-                    @endif
-                   
-                </div>
-                    <div class="hidden">
-                        No favourite task yet
-                    </div>        
+                    <div class="fav-item">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--star)" style="flex-shrink:0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <span class="fav-text">{{ $fav->list }}</span>
+                        @if($fav->dueDate) <span class="fav-date">{{ $fav->dueDate->format('d M') }}</span> @endif
+                    </div>
                 @empty
-                <div class="flex mt-6 justify-center items-center gap-4 ">
-                    <span class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-white/30">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />
-                        </svg>  
-                    </span>
-                    <p class="text-white/30 text-[14px] ">No Favourite Task Yet</p>
-                </div>
+                    <p class="no-fav">No favourites yet.</p>
                 @endforelse
+            </div>
 
-            </nav>
-
-            {{-- Sidebar footer --}}
-            <div class="p-3 border-t border-white/5 flex items-center justify-evenly">
-                <!-- From Uiverse.io by cuzpq --> 
-                <input type="checkbox" class="theme-checkbox">
-                <p class="text-[13px]">Dark Mode/Light Mode</p>
+            <div class="sidebar-footer">
+                <button class="toggle-pill" id="themeToggle" aria-label="Toggle dark mode"></button>
+                <span id="themeLabel">Light mode</span>
+                <input type="checkbox" class="theme-checkbox" id="themeCheckbox">
             </div>
         </aside>
 
-        {{-- ===== MAIN ===== --}}
-        <main class="flex-1 min-w-0 p-5 md:p-8 lg:p-10">
-            <div class="max-w-5xl mx-auto min-h-[130vh]">
+        <main>
+            <h1 class="page-heading">My Tasks</h1>
+            <p class="page-sub">Stay focused. Get it done.</p>
 
-                <div class="mb-8">
-                    <h1 class="font-display font-extrabold text-3xl md:text-4xl tracking-tight mb-1">All Tasks</h1>
-                    <p class="text-white/30 text-sm">Stay focused. Get it done.</p>
+            @guest
+            <div class="guest-notice">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Sign in or register to add and manage your tasks.
+            </div>
+            @endguest
+
+            <form action="/create-list" method="POST" class="add-form">
+                @csrf
+                <input name="list" type="text" placeholder="Add a task..." autocomplete="off" {{ auth()->guest() ? 'disabled' : '' }} class="add-input">
+                <div class="add-sep"></div>
+                <div class="add-date-btn" title="Set due date">
+                    <input {{ auth()->guest() ? 'disabled' : '' }} type="text" name="dueDate" id="dueDate" class="date-input-hidden">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 </div>
+                <select name="category_id" class="add-cat-select">
+                    <option value="">No category</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" {{ auth()->guest() ? 'disabled' : '' }} class="add-btn">Add task</button>
+            </form>
 
-                @guest
-                <div class="flex items-center gap-2.5 px-4 py-3 mb-6 rounded-xl border border-[#fa6d9a]/20 bg-[#fa6d9a]/5 text-[#fa6d9a]/75 text-sm">
-                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    Sign in or register to add and manage your tasks.
+            <div class="cat-bar">
+                @foreach($categories as $category)
+                <span class="cat-chip">
+                    {{ $category->name }}
+                    <form method="POST" action="/delete-category/{{ $category->id }}" style="display:inline;line-height:1;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="cat-del-btn" title="Remove">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                    </form>
+                </span>
+                @endforeach
+                <div class="cat-add-wrap">
+                    <form action="/create-category" method="POST" style="display:flex;gap:6px;align-items:center;">
+                        @csrf
+                        <input type="text" name="name" placeholder="New category" class="cat-add-input">
+                        <button type="submit" class="cat-add-btn">Add</button>
+                    </form>
                 </div>
-                @endguest
+            </div>
 
-                {{-- Add task --}}
-                <form action="/create-list" method="POST"
-                    class="flex h-12 mb-7 rounded-[6px] overflow-hidden border border-white/[0.07] bg-[#13131a] focus-within:border-[#7c6dfa]/50 transition-all duration-200 ">
-                    @csrf
-                    <input
-                        name="list"
-                        type="text"
-                        placeholder="What needs to be done?"
-                        autocomplete="off"
-                        {{ auth()->guest() ? 'disabled' : '' }}
-                        class="task-input flex-1 bg-transparent border-none outline-none px-4 text-sm text-white placeholder-white/20 disabled:opacity-35 disabled:cursor-not-allowed transition-shadow duration-200"
-                    >
-                    {{-- due date --}}
+            <div class="list-header">
+                <span class="list-title">Tasks</span>
+                <span class="list-count">{{ count($posts) }}</span>
+            </div>
 
-                    <div class="flex items-center min-w-7.5 sm:min-w-9 justify-center bg-[#616161]">
-                        <input
-                        {{ auth()->guest() ? 'disabled' : '' }}
-                        type="text" 
-                        name="dueDate"
-                        id="dueDate"
-                        class="bg-red-200 w-5 opacity-0 absolute"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6  ">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                        </svg>
-                    </div>
-
-                    <button
-                        type="submit"
-                        {{ auth()->guest() ? 'disabled' : '' }}
-                        class="font-display font-bold text-[11px] tracking-widest uppercase bg-[#7c6dfa] hover:bg-[#6b5ce7] disabled:opacity-35 disabled:cursor-not-allowed text-white px-5 transition-colors cursor-pointer shrink-0">
-                        + Add
-                    </button>
-                </form>
-
-                {{-- Stats --}}
-
-                <div class="flex items-center gap-2">
-                    <p class="font-display text-[10px] font-bold uppercase tracking-widest text-white/20">Tasks</p>
-                    <span class="text-[10px] font-display font-bold bg-[#7c6dfa]/12 text-[#7c6dfa] px-2 py-0.5 rounded-full">
-                        {{ count($posts) }}
-                    </span>
-                    <div class="flex-1 h-px bg-white/15"></div>
-                    <div class="tracking-widest bg-[#7c6dfa]/70 rounded-[2px] flex justify-center min-w-20">
-                        <p>Study</p>
-                        <div class="absolute mb-2 hidden group-hover/text:block bg-[#1c1c28] border border-[#7c6dfa]/20 text-white/75 text-xs px-3 py-2 rounded-lg z-80 max-w-xs wrap-break-words shadow-xl">
-                            Category
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Task list --}}
-                <div id="task-container" class="task-scroll space-y-2 max-h-[52vh] overflow-y-auto pr-0.5 pt-6">
-                    @include('partials.todo-js')
-                </div>
-
+            <div id="task-container">
+                @include('partials.todo-js')
             </div>
         </main>
+
     </div>
 
-
-    {{-- Edit overlay --}}
-    <div id="editModal" class="fixed inset-0 z-200 flex items-center justify-center px-4 hidden">
-        {{-- Backdrop --}}
-        <div id="editModalBackdrop" onclick="closeEditModal()" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-
-        {{-- Modal box --}}
-        <div id="editModalBox" class="relative w-full max-w-md bg-[#13131a] border border-white/8 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.6)] p-6">
-
-            {{-- Header --}}
-            <div class="flex items-center justify-between mb-5">
+    {{-- Edit Modal --}}
+    <div id="editModal" class="modal-bg hidden">
+        <div id="editModalBox" class="modal">
+            <div class="modal-header">
                 <div>
-                    <h2 class="font-display font-bold text-lg tracking-tight">Edit Task</h2>
-                    <p class="text-white/30 text-xs mt-0.5">Make your changes below</p>
+                    <div class="modal-title">Edit task</div>
+                    <div class="modal-sub">Update the task details below</div>
                 </div>
-                <button onclick="closeEditModal()" class="w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <button class="modal-close" onclick="closeEditModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
-
-            {{-- Form --}}
             <form id="editForm" method="POST">
                 @csrf
                 @method('PUT')
-
-                <div class="mb-3">
-                    <label class="block font-display text-[10px] font-bold uppercase tracking-widest text-white/25 mb-2">Task</label>
-                    <input
-                        id="editInput"
-                        type="text"
-                        name="list"
-                        autocomplete="off"
-                        class="edit-input w-full bg-[#0d0d12] border border-white/[0.07] focus:border-[#7c6dfa]/50 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all duration-200"
-                        placeholder="Task name..."
-                    >
-                </div>
-
-                {{-- edit tanggalan --}}
-                <div class="sm:min-w-9 justify-center mb-8 ">
-                    <label class="block font-display text-[10px] font-bold uppercase tracking-widest text-white/25 mb-2">Date</label>
-                    <input
-                    {{ auth()->guest() ? 'disabled' : '' }}
-                    type="text" 
-                    name="dueDate"
-                    id="dueDate"
-                    class="bg-red-200 w-5 opacity-0 absolute"
-                    >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6  ">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                    </svg>
-                </div>
-
-                <div class="flex items-center gap-2.5">
-                    <button type="submit" class="flex-1 font-display font-bold text-xs tracking-widest uppercase bg-[#7c6dfa] hover:bg-[#6b5ce7] text-white py-3 rounded-xl transition-colors cursor-pointer">
-                        Save Changes
-                    </button>
-                    <button type="button" onclick="closeEditModal()" class="font-display font-bold text-xs tracking-widest uppercase text-white/35 hover:text-white/60 border border-white/[0.07] hover:border-white/15 py-3 px-5 rounded-xl transition-all cursor-pointer">
-                        Cancel
-                    </button>
+                <label class="modal-label">Task name</label>
+                <input id="editInput" type="text" name="list" autocomplete="off" class="modal-input" placeholder="Task name...">
+                <label class="modal-label">Due date</label>
+                <input {{ auth()->guest() ? 'disabled' : '' }} type="text" name="dueDate" id="editDueDate" class="modal-input" placeholder="Select a date...">
+                <div class="modal-actions">
+                    <button type="button" onclick="closeEditModal()" class="modal-cancel">Cancel</button>
+                    <button type="submit" class="modal-save">Save changes</button>
                 </div>
             </form>
-
         </div>
     </div>
 
-    {{-- Delete overlay --}}
-    <div id="deleteModal" class="fixed inset-0 z-200 flex items-center justify-center px-4 hidden">
-        {{-- Backdrop --}}
-        <div id="editModalBackdrop" onclick="closeDeleteModal()" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-
-        {{-- Modal box --}}
-        <div id="DeleteBox" class="relative w-full max-w-md bg-[#13131a] border border-white/8 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.6)] p-6">
-
-            {{-- Header --}}
-            <div class="flex items-center justify-between mb-5 ">
+    {{-- Delete Modal --}}
+    <div id="deleteModal" class="modal-bg hidden">
+        <div id="DeleteBox" class="modal">
+            <div class="modal-header">
                 <div>
-                    <h2 class="font-display font-bold text-lg tracking-tight">Are You Sure?</h2>
-                    <p class="text-white/30 text-xs mt-0.5">Are you sure to delete this task</p>
+                    <div class="modal-title">Delete task?</div>
+                    <div class="modal-sub">This action cannot be undone.</div>
                 </div>
-                <button onclick="closeDeleteModal()" class="w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <button class="modal-close" onclick="closeDeleteModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
-
-            {{-- Form --}}
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-stretch sm:items-center pt-7 tracking-tight">
-                <form id="deleteForm" method="POST">
+            <div class="modal-actions">
+                <form id="deleteForm" method="POST" style="display:contents;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="tracking-tight w-full sm:w-60 sm h-12 flex items-center justify-center rounded-lg bg-[#f9181871] hover:bg-[#f918189e] transition-all cursor-pointer text-[#f5e2e2c9]" title="Delete">
-                        Delete
-                    </button>
+                    <button type="button" onclick="closeDeleteModal()" class="modal-cancel">Cancel</button>
+                    <button type="submit" class="modal-delete">Delete</button>
                 </form>
-                <div>
-                    <button onclick="closeDeleteModal()" class="tracking-tight w-full cursor-pointer bg-[#60606037] sm:w-37 h-12 rounded-lg hover:bg-[#6060609a]">
-                        Cancel  
-                    </button> 
-                </div>
             </div>
         </div>
     </div>
 
-    <script>
-    </script>
 </body>
 </html>

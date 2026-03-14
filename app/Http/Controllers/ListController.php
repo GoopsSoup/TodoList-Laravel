@@ -17,8 +17,9 @@ class ListController extends Controller
 
         $listField = $request->validate([
             'list' => 'required|max:255',
-            'dueDate' => 'nullable|date'
-        ]); 
+            'dueDate' => 'nullable|date',
+            'category_id' => 'nullable|exists:categories,id'
+        ]);
 
         $listField['list'] = strip_tags($listField['list']);
 
@@ -101,11 +102,13 @@ class ListController extends Controller
             return view('todo', [
                 'allPosts' => collect(),
                 'posts' => collect(),
+                'categories' => collect(),
             ]);
         }
 
         $query = auth()->user()->userList()->orderBy('completed', 'asc')->orderBy('dueDate', 'desc')->latest();
-        $allPosts = auth()->user()->userList()->latest()->get(); 
+        $allPosts = auth()->user()->userList()->latest()->get();
+        $categories = auth()->user()->categories()->orderBy('name')->get();
 
         if (request('filter') === 'today') {
             $query->whereDate('dueDate', today());
@@ -127,6 +130,10 @@ class ListController extends Controller
             $query->where('favourite', true);
         }
 
+        if(request('filter') === 'category') {
+            $query->where('category_id', request('category'));
+        }
+
         $posts = $query->get();
 
         if(request()->ajax()) {
@@ -134,6 +141,6 @@ class ListController extends Controller
         }
         // $posts = Post::where('user_id', auth()->id())->get();
 
-        return view('todo', compact('allPosts', 'posts'));
+        return view('todo', compact('allPosts', 'posts', 'categories'));
     }
 }

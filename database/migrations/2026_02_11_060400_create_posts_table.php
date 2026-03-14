@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('completed')->default(false);
             $table->boolean('favourite')->default(false);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
         }); 
     }
 

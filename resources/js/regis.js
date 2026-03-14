@@ -79,3 +79,13 @@ document.getElementById('password').addEventListener('input', function(){
     }
 
 });
+
+window.showLogin = function showLogin(e) {
+    e.preventDefault();
+    document.getElementById('slide-container').classList.add('login-mode');
+}
+
+window.showRegister = function showRegister(e) {
+    e.preventDefault();
+    document.getElementById('slide-container').classList.remove('login-mode');
+}

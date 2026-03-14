@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['list', 'user_id', 'dueDate', 'completed', 'favourite'];
+    protected $fillable = ['list', 'user_id', 'dueDate', 'completed', 'favourite', 'category_id'];
 
     protected $casts = [
         'dueDate' => 'date',
@@ -16,5 +16,9 @@ class Post extends Model
 
     public function user() {
          return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function category() {
+        return $this->belongsTo(category::class);
     }
 }

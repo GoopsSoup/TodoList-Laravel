@@ -3,6 +3,7 @@
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,11 @@ Route::post('/login', [UserController::class, 'login']);
 
 //Sedikit security
 Route::middleware('auth' , 'verified')->group(function (){
-    //List
+    // category
+    Route::post('/create-category', [CategoryController::class, 'create']);
+    // delete category
+    Route::delete('/delete-category/{category}', [CategoryController::class, 'deleteCategory']);
+    //L ist
     Route::post('/create-list', [ListController::class, 'createList']);
     //Edit  
     Route::put('/edit-list/{post}', [ListController::class, 'editList']);   

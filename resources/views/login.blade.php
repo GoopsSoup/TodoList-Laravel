@@ -31,8 +31,6 @@
                                 @csrf
                                 <p class="text-sm">Name</p>
                                 <input name="loginName" type="text" placeholder="username" class="bg-fuchsia-400 border-2 h-10 pl-1 w-full">
-                                <p class="text-sm">Email</p>
-                                <input name="loginEmail" type="text" placeholder="user@gmail.com" class="bg-fuchsia-400 border-2 h-10 pl-1 w-full">
                                 <p class="text-sm">Password</p> 
                                 <input name="loginPassword" type="password" class="bg-fuchsia-400 border-2 h-10 pl-1 w-full">
                                 <div class="flex justify-center items-center">

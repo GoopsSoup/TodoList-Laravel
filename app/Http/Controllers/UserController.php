@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
     //register
     public function register(Request $request) {
         //hal yang dibutuhkan untuk register
@@ -26,32 +25,40 @@ class UserController extends Controller
 
         //buat variable untuk baris akun user 
         $user = User::create($userRequired);
-        auth()->login($user);
 
-        return redirect('/');
+        return redirect('/register');
     }
 
     //logout
-    public function logout() {
-        auth()->logout();
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect('/register');
     }
 
     //login
     public function login(Request $request) {
+
         //hal yang dibutuhkan untuk login
         $userRequired = $request->validate([
             'loginName' => ['required', 'min:6'],
-            'loginEmail' => ['required', 'email'],
             'loginPassword' => ['required', 'min:8', 'max:22']
         ]);
 
+        $remember = $request->boolean('remember');
+
         //jika akunnya sesuai yg ada di database
-        if (auth()->attempt(['name' => $userRequired['loginName'], 'email' => $userRequired['loginEmail'], 'password' => $userRequired['loginPassword']])) {
-            //lanjut
+        if (Auth::attempt([
+            'name' => $userRequired['loginName'],
+            'password' => $userRequired['loginPassword']
+        ], $remember)) {    
+
             $request->session()->regenerate();
-        } else {
-            return redirect('/register');
+
+            return redirect('/');
         }
 
         //kembali ke homepage
