@@ -382,8 +382,9 @@
                     <form action="/create-category" method="POST" class="flex gap-[6px] items-center">
                         @csrf
                         <input type="text" name="name" placeholder="New category"
-                               class="cat-add-input font-['Inter'] text-[13px] px-[10px] py-[5px] border rounded w-[130px] outline-none">
-                        <button type="submit" class="cat-add-btn font-['Inter'] text-[13px] font-medium px-3 py-[5px] border-0 rounded text-white cursor-pointer whitespace-nowrap">Add</button>
+                               {{ auth()->guest() ? 'disabled' : '' }}
+                               class="cat-add-input font-['Inter'] text-[13px] px-[10px] py-[5px] border rounded w-[130px] outline-none disabled:cursor-not-allowed disabled:opacity-[0.35]">
+                        <button type="submit" {{ auth()->guest() ? 'disabled' : '' }} class="cat-add-btn font-['Inter'] text-[13px] font-medium px-3 py-[5px] border-0 rounded text-white cursor-pointer whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-[0.35]">Add</button>
                     </form>
                 </div>
             </div>

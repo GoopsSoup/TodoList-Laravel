@@ -70,30 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarOverlay && sidebarOverlay.addEventListener('click', closeSidebar);
 
 
-    // ===== FILTER LINKS (AJAX) =====
-    document.addEventListener('click', function (e) {
-        const link = e.target.closest('.filter-link');
-        if (!link) return;
-        e.preventDefault();
-
-        const url = link.getAttribute('href');
-
-        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-            .then(res => res.text())
-            .then(html => {
-                const container = document.querySelector('#task-container');
-                if (container) container.innerHTML = html;
-                history.pushState({}, '', url);
-
-                document.querySelectorAll('.filter-link').forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-
-                if (window.innerWidth < 1024) closeSidebar();
-            })
-            .catch(err => console.error('Filter error:', err));
-    });
-
-
     // ===== ESCAPE TO CLOSE MODALS =====
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
