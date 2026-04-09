@@ -241,31 +241,31 @@
             <div class="py-2">
                 <span class="block text-[11px] font-semibold uppercase tracking-[0.08em] px-4 pt-2 pb-1" style="color:var(--text-3);">Menu</span>
 
-                <a href="/?filter=all" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'all' ? 'active font-medium' : '' }} filter-link">
+                <a href="/?filter=all" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'all' ? 'active font-medium' : '' }}">
                     <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                     All Tasks
                     @auth <span class="nav-badge ml-auto text-xs font-medium px-[7px] py-[1px] rounded-[10px] min-w-[22px] text-center">{{ $allPosts->count() }}</span> @endauth
                 </a>
 
-                <a href="/?filter=upcoming" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'upcoming' ? 'active font-medium' : '' }} filter-link">
+                <a href="/?filter=upcoming" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'upcoming' ? 'active font-medium' : '' }}">
                     <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     Upcoming
                     @auth <span class="nav-badge ml-auto text-xs font-medium px-[7px] py-[1px] rounded-[10px] min-w-[22px] text-center">{{ $allPosts->where('dueDate', '>', today())->count() }}</span> @endauth
                 </a>
 
-                <a href="/?filter=today" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'today' ? 'active font-medium' : '' }} filter-link">
+                <a href="/?filter=today" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'today' ? 'active font-medium' : '' }}">
                     <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Today
                     @auth <span class="nav-badge ml-auto text-xs font-medium px-[7px] py-[1px] rounded-[10px] min-w-[22px] text-center">{{ $allPosts->where('dueDate', today())->count() }}</span> @endauth
                 </a>
 
-                <a href="/?filter=overdue" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'overdue' ? 'active font-medium' : '' }} filter-link">
+                <a href="/?filter=overdue" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'overdue' ? 'active font-medium' : '' }}">
                     <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                     Overdue
                     @auth <span class="nav-badge red ml-auto text-xs font-medium px-[7px] py-[1px] rounded-[10px] min-w-[22px] text-center">{{ $allPosts->where('dueDate', '<', today())->count() }}</span> @endauth
                 </a>
 
-                <a href="/?filter=completed" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'completed' ? 'active font-medium' : '' }} filter-link">
+                <a href="/?filter=completed" class="nav-item flex items-center gap-3 px-4 py-[10px] text-sm no-underline mr-2 cursor-pointer font-['Inter'] {{ request('filter') === 'completed' ? 'active font-medium' : '' }}">
                     <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     Completed
                     @auth <span class="nav-badge green ml-auto text-xs font-medium px-[7px] py-[1px] rounded-[10px] min-w-[22px] text-center">{{ $allPosts->where('completed')->count() }}</span> @endauth
@@ -279,7 +279,7 @@
                 <form method="GET" action="/">
                     <select name="category" onchange="this.form.submit()"
                             class="cat-select block w-[calc(100%-32px)] mx-4 my-1 font-['Inter'] text-[13px] py-2 pl-[10px] pr-7 border rounded outline-none cursor-pointer">
-                        <option value="">All Categories</option>
+                        <option value="">No Categories</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
@@ -287,7 +287,7 @@
                         @endforeach
                     </select>
                     <input type="hidden" name="filter" value="category">
-                </form>
+                </form> 
             </div>
 
             <div class="h-px mx-4 my-1" style="background:var(--border);"></div>

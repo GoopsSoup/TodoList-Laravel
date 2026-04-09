@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Register page</title>
 </head>
 <body class="flex w-screen h-screen">
 
@@ -25,7 +25,7 @@
                         {{-- Login page --}}
                         <div class="flex flex-col items-center justify-center absolute">
 
-                            <h1 class="text-3xl relative">Login</h1>
+                            <h1 class="text-3xl relative">Log in</h1>
 
                             <form action="/login" method="POST" class="flex flex-col gap-3 pt-9 w-70">
                                 @csrf

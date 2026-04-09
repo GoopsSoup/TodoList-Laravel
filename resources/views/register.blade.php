@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/regis.js'])
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Register Page</title>
     <style>
         body { font-family: 'DM Sans', sans-serif; }
         .font-display { font-family: 'Syne', sans-serif; }
@@ -52,7 +52,7 @@
                             <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 20H18C19.1046 20 20 19.1046 20 18M15 4H18C19.1046 4 20 4.89543 20 6V14M11 16L15 12H3M11 8L12 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <a href="#" class="hover:text-blue-600 underline" onclick="showLogin(event)">Login</a>
+                            <a href="#" class="hover:text-blue-600 underline" onclick="showLogin(event)">Log in</a>
                         </p>
 
                         <form action="/register" method="POST" class="flex flex-col w-full gap-5 pt-4">
@@ -119,11 +119,6 @@
                                 <p class="text-[15px]">Password</p>
                                 <input name="loginPassword" type="password"
                                     class="min-h-12 border-[#4c4cb68a] border focus:border-[#00a6ff] focus:outline-none max-h-10 w-full pl-3 rounded-[5px]">
-                            </div>
-
-                            <div class="flex gap-2 items-center">
-                                <input type="checkbox" name="remember">
-                                <p class="text-[13px]">Remember me</p>
                             </div>
 
                             <div>

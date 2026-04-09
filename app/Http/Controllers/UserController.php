@@ -48,13 +48,11 @@ class UserController extends Controller
             'loginPassword' => ['required', 'min:8', 'max:22']
         ]);
 
-        $remember = $request->boolean('remember');
-
         //jika akunnya sesuai yg ada di database
         if (Auth::attempt([
             'name' => $userRequired['loginName'],
             'password' => $userRequired['loginPassword']
-        ], $remember)) {    
+        ])) {    
 
             $request->session()->regenerate();
 

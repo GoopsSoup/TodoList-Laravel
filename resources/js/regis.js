@@ -14,6 +14,10 @@ fetch('/check-username?username=' + username)
         if(username.length === 0){
             status.textContent = "";
         }
+        else if(username.length > 0 && username.length < 6) {
+            status.textContent = "- Username atleast 6 character"
+            status.style.color = "red"
+        }
         else if (data.available) {
             status.textContent = "- Username available";
             status.style.color = "green";
