@@ -129,22 +129,3 @@ window.closeDeleteModal = function () {
     const box   = document.getElementById('DeleteBox');
     animateOut(box, () => modal.classList.add('hidden'));
 };
-
-
-// ===== ANIMATION HELPERS =====
-function animateIn(el) {
-    el.style.opacity   = '0';
-    el.style.transform = 'scale(0.97) translateY(6px)';
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-        el.style.transition = 'opacity 0.18s ease, transform 0.2s ease';
-        el.style.opacity    = '1';
-        el.style.transform  = 'scale(1) translateY(0)';
-    }));
-}
-
-function animateOut(el, cb) {
-    el.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
-    el.style.opacity    = '0';
-    el.style.transform  = 'scale(0.97) translateY(4px)';
-    setTimeout(cb, 150);
-}

@@ -52,7 +52,7 @@ $isOverdue = $post->dueDate && now()->diffInDays($post->dueDate, false) < -1;
         <form method="POST" action="/posts/{{ $post->id }}/favourite">
             @csrf
             @method('PATCH')
-            <button type="submit" class="icon-btn star-btn {{ $post->favourite ? 'starred-on' : '' }} flex items-center justify-center w-8 h-8 rounded-full bg-transparent border-0 cursor-pointer" title="Favourite">
+            <button type="submit" class="icon-btn star-btn {{ $post->favourite ? 'starred-on' : '' }} flex items-center justify-center w-8 h-8 rounded-full border-0 cursor-pointer" title="Favourite">
                 <svg width="15" height="15" viewBox="0 0 24 24"
                     fill="{{ $post->favourite ? 'currentColor' : 'none' }}"
                     stroke="currentColor" stroke-width="1.8">
