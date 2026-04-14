@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+    <script>
+        (function () {
+            const saved = localStorage.getItem('taskflow-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
     <style>
         /* ── CSS custom properties: cannot be replaced by Tailwind ── */
         :root, [data-theme="light"] {
@@ -324,7 +330,7 @@
             </div>
 
             <div class="mt-auto flex items-center gap-[10px] px-4 py-3 text-[13px] border-t" style="color:var(--text-2); border-color:var(--border);">
-                <button class="toggle-pill relative w-10 h-[22px] rounded-[11px] border-0 cursor-pointer shrink-0" id="themeToggle" aria-label="Toggle dark mode"></button>
+                <button class="toggle-pill relative w-10 h-[22px] rounded-[11px] border-0 cursor-pointer shrink-0" id="themeToggle"></button>
                 <span id="themeLabel">Light mode</span>
                 <input type="checkbox" class="hidden" id="themeCheckbox">
             </div>

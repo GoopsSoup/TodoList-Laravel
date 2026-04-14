@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
     // ===== DARK / LIGHT MODE =====
     const html          = document.documentElement;
     const themeToggle   = document.getElementById('themeToggle');
@@ -37,15 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function applyTheme(theme) {
         html.setAttribute('data-theme', theme);
-        const isDark = theme === 'dark';
-        if (themeToggle)   themeToggle.classList.toggle('on', isDark);
-        if (themeLabel)    themeLabel.textContent = isDark ? 'Dark mode' : 'Light mode';
-        if (themeCheckbox) themeCheckbox.checked = isDark;
+        const isLight = theme === 'light';
+        if (themeToggle)   themeToggle.classList.toggle('on', isLight);
+        if (themeLabel)    themeLabel.textContent = isLight ? 'Light mode' : 'Dark mode';
+        if (themeCheckbox) themeCheckbox.checked = isLight;
     }
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
             localStorage.setItem('taskflow-theme', next);
             applyTheme(next);
         });
