@@ -87,7 +87,6 @@
                                 <p class="text-[13px] opacity-70 pl-2">By creating an account, you agree to the Terms of Service. For more information about FlowTask privacy practices, see the FlowTask Privacy Statement. We'll occasionally send you account-related emails.</p>
                             </div>
                         </form>
-
                     </div>
                 </section>
             </div>

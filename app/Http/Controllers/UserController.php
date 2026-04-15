@@ -44,13 +44,13 @@ class UserController extends Controller
 
         //hal yang dibutuhkan untuk login
         $userRequired = $request->validate([
-            'loginName' => ['required', 'min:6'],
+            'loginEmail' => ['required', 'min:6'],
             'loginPassword' => ['required', 'min:8', 'max:22']
         ]);
 
         //jika akunnya sesuai yg ada di database
         if (Auth::attempt([
-            'name' => $userRequired['loginName'],
+            'email' => $userRequired['loginEmail'],
             'password' => $userRequired['loginPassword']
         ])) {    
 
