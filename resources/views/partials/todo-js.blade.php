@@ -11,8 +11,7 @@ if ($post->dueDate) {
 $isOverdue = $post->dueDate && now()->diffInDays($post->dueDate, false) < -1;
 @endphp
 
-{{-- task-item: border-bottom, hover bg, fadeIn animation --}}
-<div class="task-item flex items-center gap-3 px-3 py-[10px] border-b">
+<div class="task-item flex items-center gap-6 px-3 py-[10px] border-b">
 
     {{-- Complete button --}}
     <form class="flex items-center" method="POST" action="/posts/{{ $post->id }}/completed">
@@ -32,12 +31,12 @@ $isOverdue = $post->dueDate && now()->diffInDays($post->dueDate, false) < -1;
 
     {{-- Task body --}}
     <div class="flex-1 min-w-0">
-        <div class="task-name text-sm whitespace-nowrap overflow-hidden text-ellipsis {{ $post->completed ? 'done line-through' : ($post->favourite ? 'starred' : '') }}">
+        <div class="task-name text-sm whitespace-nowrap overflow-hidden text-ellipsis {{ $post->completed ? 'line-through' : ($post->favourite ? 'starred' : '') }}">
             {{ $post['list'] }}
         </div>
         <div class="flex items-center gap-2 mt-[2px]">
             @if ($post->dueDate)
-                <span class="task-due text-xs {{ $post->completed ? 'done line-through' : ($isOverdue ? 'overdue' : '') }}">
+                <span class="task-due text-xs {{ $post->completed ? 'line-through' : ($isOverdue ? 'overdue' : '') }}">
                     {{ $post->dueDate->format('d M Y') }}
                 </span>
             @endif
@@ -89,7 +88,19 @@ $isOverdue = $post->dueDate && now()->diffInDays($post->dueDate, false) < -1;
 
     </div>
 
+    <div class="flex items-center gap-2 mt-[2px]">
+        
+        {{-- Created at --}}
+        <span class="task-created text-xs text-gray-400">
+            Created: {{ $post->created_at->format('d M Y') }} 
+        </span>
+
+    </div>
+
 </div>
+
+
+
 
 @empty
 
