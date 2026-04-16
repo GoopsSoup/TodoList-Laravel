@@ -27,6 +27,7 @@ class ListController extends Controller
         //tambahkan user_id ke id list yang sudah dibuat 
         $listField['user_id'] = auth()->id();
         Post::create($listField);
+        
 
         return redirect('/');
     }
@@ -63,10 +64,6 @@ class ListController extends Controller
             $post->delete();
         }
         return redirect('/');
-    }
-
-    public function times(Post $post) {
-        $table->timestamp('added_on')->nullable()->default(time());
     }
 
     public function check(Post $post) {
@@ -134,7 +131,7 @@ class ListController extends Controller
             $query->where('category_id', request('category'));
         }
 
-        $posts = $query->get();
+        $posts = $query->paginate(5)->withQueryString();;
 
         if(request()->ajax()) {
             return view('partials.todo-js', compact('posts'));

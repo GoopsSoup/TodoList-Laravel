@@ -403,6 +403,11 @@
             <div id="task-container" class="flex flex-col">
                 @include('partials.todo-js')
             </div>
+
+            <div class="mt-4 flex justify-end">
+                {{ $posts->links() }}
+                {{-- {{ dd($posts) }} --}}
+            </div>
         </main>
 
     </div>

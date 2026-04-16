@@ -100,8 +100,6 @@ $isOverdue = $post->dueDate && now()->diffInDays($post->dueDate, false) < -1;
 </div>
 
 
-
-
 @empty
 
 <div class="flex flex-col items-center justify-center py-16 px-5 text-center">
