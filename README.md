@@ -9,7 +9,8 @@ Just a school project..... (still in progress)
 
 <h3> Immediate Homepage ( Not logged in yet ) </h3>
 Using @auth from laravel I able to make a different page for unauthenticated user, unauthenticated user cannot interact with the 
-web except the for log in & sign in 
+web except the for log in & sign in. Can't forgot about the main feature which is to add a list/CREATE and see the lists just right below 
+the create input, so with that it is READ
 <br><br>
 <img width="700" height="400" alt="Screenshot (78)" src="https://github.com/user-attachments/assets/57048b48-ac91-426c-95b9-30af6b3d73ed" />
 <br>
@@ -35,7 +36,7 @@ with flatpickr to set the time for each list. ALSO! categories...
 
 <h3> Edit & Delete list  </h3>
 I wonder what these 'EDIT' & 'DELETE' do in my so called todo-list web...
-Anyway one of the main feature in every project is delete and edit so ofcourse my project have these feature to obviously delete and edit
+Anyway one of the main feature in every project is delete and edit/UPDATE so ofcourse my project have these feature to obviously delete and edit
 the lists. AND WITH THIS ALL FEATURE I SHALL HAVE THE <h4>CRUD</h4>
 <br><br>
 <img width="700" height="400" alt="Screenshot (80)" src="https://github.com/user-attachments/assets/6b9e4c51-8949-4e17-8c0d-6d4ccaa7904f" />
