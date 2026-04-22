@@ -2,9 +2,10 @@ Laravel project todo-list
 Just a school project..... (still in progress)
 
 Login & register
-<img width="1280" height="720" alt="Screenshot (77)" src="https://github.com/user-attachments/assets/ca8dc9e6-edd1-4410-af28-0f385b4af127" />
+<img width="200" height="70" alt="Screenshot (77)" src="https://github.com/user-attachments/assets/ca8dc9e6-edd1-4410-af28-0f385b4af127" />
 <img width="1280" height="720" alt="Screenshot (76)" src="https://github.com/user-attachments/assets/a1a9fbb9-acea-46e0-8678-ce302f36f752" />
 <br>
+
 Immediate Homepage ( Not logged in yet )
 <img width="1280" height="720" alt="Screenshot (78)" src="https://github.com/user-attachments/assets/57048b48-ac91-426c-95b9-30af6b3d73ed" />
 
