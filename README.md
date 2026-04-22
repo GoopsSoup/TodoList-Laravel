@@ -1,4 +1,4 @@
-</h1> Laravel project todo-list </h1>
+<h1> Laravel project todo-list </h1>
 Just a school project..... (still in progress)
 <br>
 
