@@ -9,7 +9,7 @@ Just a school project..... (still in progress)
 
 <h3> Immediate Homepage ( Not logged in yet ) </h3>
 Using @auth from laravel I able to make a different page for unauthenticated user, unauthenticated user cannot interact with the 
-web except the for log in & sign in. Can't forgot about the main feature which is to add a list/CREATE and see the lists just right below 
+web except for log in & sign in. Can't forgot about the main feature which is to add a list/CREATE and see the lists just right below 
 the create input, so with that it is READ
 <br><br>
 <img width="700" height="400" alt="Screenshot (78)" src="https://github.com/user-attachments/assets/57048b48-ac91-426c-95b9-30af6b3d73ed" />
