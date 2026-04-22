@@ -106,7 +106,7 @@ class ListController extends Controller
         $query = auth()->user()->userList()->orderBy('completed', 'asc')->orderBy('dueDate', 'desc')->latest();
         $allPosts = auth()->user()->userList()->latest()->get();
         $categories = auth()->user()->categories()->orderBy('name')->get();
-
+    
         if (request('filter') === 'today') {
             $query->whereDate('dueDate', today());
         }

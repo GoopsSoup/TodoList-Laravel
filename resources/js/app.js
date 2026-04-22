@@ -7,13 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===== FLATPICKR =====
     flatpickr("#dueDate", {
         dateFormat: "Y-m-d",
-        enableTime: false,
-        clickOpens: true,
     });
 
     flatpickr("#editDueDate", {
         dateFormat: "Y-m-d",
-        enableTime: false,
     });
 
     // Make calendar icon open the date picker
@@ -31,15 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeLabel    = document.getElementById('themeLabel');
     const themeCheckbox = document.getElementById('themeCheckbox');
 
-    const saved = localStorage.getItem('taskflow-theme') || 'light';
+    const saved = localStorage.getItem('taskflow-theme') || 'dark';
     applyTheme(saved);
 
     function applyTheme(theme) {
         html.setAttribute('data-theme', theme);
-        const isLight = theme === 'light';
-        if (themeToggle)   themeToggle.classList.toggle('on', isLight);
-        if (themeLabel)    themeLabel.textContent = isLight ? 'Light mode' : 'Dark mode';
-        if (themeCheckbox) themeCheckbox.checked = isLight;
+        const isDark = theme === 'dark';
+        if (themeToggle)   themeToggle.classList.toggle('on', isDark);
+        if (themeLabel)    themeLabel.textContent = isDark ? 'Dark mode' : 'Light mode';
+        if (themeCheckbox) themeCheckbox.checked = isDark;
     }
 
     if (themeToggle) {
@@ -99,16 +96,15 @@ window.openEditModal = function (id, currentText) {
     input.value  = currentText;
 
     modal.classList.remove('hidden');
-    animateIn(box);
+
     input.focus();
     input.select();
 };
 
 window.closeEditModal = function () {
-    const modal = document.getElementById('editModal');
-    const box   = document.getElementById('editModalBox');
-    animateOut(box, () => modal.classList.add('hidden'));
+    document.getElementById('editModal').classList.add('hidden');
 };
+
 
 
 // ===== DELETE MODAL =====
@@ -124,7 +120,5 @@ window.openDeleteModal = function (id) {
 };
 
 window.closeDeleteModal = function () {
-    const modal = document.getElementById('deleteModal');
-    const box   = document.getElementById('DeleteBox');
-    animateOut(box, () => modal.classList.add('hidden'));
+    document.getElementById('deleteModal').classList.add('hidden');
 };

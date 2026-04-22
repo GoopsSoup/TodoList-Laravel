@@ -404,10 +404,12 @@
                 @include('partials.todo-js')
             </div>
 
+            @auth
             <div class="mt-4 flex justify-end">
                 {{ $posts->links() }}
-                {{-- {{ dd($posts) }} --}}
+                {{-- {{ dd($posts) }}  --}}
             </div>
+            @endauth
         </main>
 
     </div>
@@ -428,7 +430,7 @@
                 @csrf
                 @method('PUT')
                 <label class="modal-label block text-xs font-medium mb-[6px]">Task name</label>
-                <input id="editInput" type="text" name="list" autocomplete="off" class="modal-input w-full font-['Inter'] text-sm px-3 py-[10px] border rounded-md outline-none mb-4" placeholder="Task name...">
+                <input id="editInput" type="text" name="list" class="modal-input w-full font-['Inter'] text-sm px-3 py-[10px] border rounded-md outline-none mb-4" placeholder="Task name...">
                 <label class="modal-label block text-xs font-medium mb-[6px]">Due date</label>
                 <input {{ auth()->guest() ? 'disabled' : '' }} type="text" name="dueDate" id="editDueDate" class="modal-input w-full font-['Inter'] text-sm px-3 py-[10px] border rounded-md outline-none mb-4" placeholder="Select a date...">
                 <div class="flex justify-end gap-2 mt-1">
