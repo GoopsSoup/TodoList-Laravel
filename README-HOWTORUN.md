@@ -24,3 +24,7 @@ DB_PASSWORD=
 
 5.kode bisa dijalankan menggunakan 
 -composer run dev
+
+atau 
+
+-php artisan dev dan npm run dev
