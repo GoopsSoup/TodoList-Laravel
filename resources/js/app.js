@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeLabel    = document.getElementById('themeLabel');
     const themeCheckbox = document.getElementById('themeCheckbox');
 
-    const saved = localStorage.getItem('taskflow-theme') || 'dark';
+    const saved = localStorage.getItem('taskflow-theme') || 'light';
     applyTheme(saved);
 
     function applyTheme(theme) {
@@ -84,13 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
 // ===== EDIT MODAL =====
 window.openEditModal = function (id, currentText) {
     const modal = document.getElementById('editModal');
     const form  = document.getElementById('editForm');
     const input = document.getElementById('editInput');
-    const box   = document.getElementById('editModalBox');
 
     form.action  = '/edit-list/' + id;
     input.value  = currentText;

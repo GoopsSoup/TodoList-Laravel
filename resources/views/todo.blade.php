@@ -16,6 +16,8 @@
         })();
     </script>
     <style>
+        /* run in console to remover default theme stored in localstorage */
+        /* localStorage.removeItem('taskflow-theme'); */
         /* ── CSS custom properties: cannot be replaced by Tailwind ── */
         :root, [data-theme="light"] {
             --bg:         #ffffff;
